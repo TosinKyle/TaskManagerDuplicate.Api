@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "m/veE6p9jcV+m9CYRhp9DBFVLL8MBkScWAII1R+6kAg=",
+  "Source": "TaskManagerDuplicate.API",
+  "BasePath": "_content/TaskManagerDuplicate.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
