@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManagerDuplicate.Data.Context;
+using TaskManagerDuplicate.Data.Repositories.Implementation;
 using TaskManagerDuplicate.Data.Repositories.Interface;
 
 namespace TaskManagerDuplicate.API
@@ -17,7 +18,8 @@ namespace TaskManagerDuplicate.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<EntityFrameworkContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
-            builder.Services.AddScoped<IUserRepository, IUserRepository>();
+            builder.Services.AddScoped<IUserRepository,UserRepository>();
+            builder.Services.AddScoped<IToDoTaskRepository,ToDoTaskRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
