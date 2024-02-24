@@ -697,6 +697,10 @@
         }
       },
       "TaskManagerDuplicate.Service/1.0.0": {
+        "dependencies": {
+          "TaskManagerDuplicate.Data": "1.0.0",
+          "TaskManagerDuplicate.Domain": "1.0.0"
+        },
         "runtime": {
           "TaskManagerDuplicate.Service.dll": {}
         }

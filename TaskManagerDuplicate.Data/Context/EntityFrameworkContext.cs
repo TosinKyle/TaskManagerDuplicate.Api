@@ -5,6 +5,10 @@ namespace TaskManagerDuplicate.Data.Context
 {
     public class EntityFrameworkContext : DbContext
     {
+        public EntityFrameworkContext(DbContextOptions<EntityFrameworkContext> options) : base(options)
+        {
+
+        }
         public DbSet<User> User { get; set; }
         public DbSet<ToDoTask> ToDoTask { get; set; }
 

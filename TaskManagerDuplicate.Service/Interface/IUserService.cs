@@ -1,5 +1,4 @@
 ﻿using TaskManagerDuplicate.Domain.DataTransferObjects;
-using TaskManagerDuplicate.Domain.DbModels;
 
 namespace TaskManagerDuplicate.Service.Interface
 {
