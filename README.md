@@ -3,4 +3,4 @@
 -[] Attcah a readme file to the reporsitory
 -[] Clone repository to the local computer
 -[] Create a visual studio Web Api project
-=[] Create the repository,data,domain and service class libraries
+-[] Create the repository,data,domain and service class libraries
