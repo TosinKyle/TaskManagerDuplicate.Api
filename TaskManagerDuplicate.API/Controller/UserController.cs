@@ -11,32 +11,32 @@ namespace TaskManagerDuplicate.API.Controller
         private readonly IUserService _userService; //why faint
         public UserController(IUserService userService)
         {
-           _userService = userService;
+            _userService = userService;
         }
-        [HttpGet("get-user-by-id/({id})")]
+        [HttpGet("get-user-by-id/{id}")]
         public IActionResult GetUserById([FromRoute] string id)
         {
-                if (string.IsNullOrEmpty(id))
-                return BadRequest("id cannot be null or empty");   
-                DisplaySingleUserDto singleUser =_userService.GetSingleUserById(id);
-                if (singleUser != null) 
-                    return Ok(singleUser);
-                return NotFound("User not found");
+            if (string.IsNullOrEmpty(id))
+                return BadRequest("id cannot be null or empty");
+            DisplaySingleUserDto singleUser = _userService.GetSingleUserById(id);
+            if (singleUser != null)
+                return Ok(singleUser);
+            return NotFound("User not found");
         }
         [HttpGet("get-all-users")]
-        public IActionResult GetAllUsers() 
+        public IActionResult GetAllUsers()
         {
-         List<UserListDto> userList =_userService.GetAllUsers();
+            List<UserListDto> userList = _userService.GetAllUsers();
             if (userList.Count < 1)
                 return NotFound("user list is empty");
-              return Ok(userList);
+            return Ok(userList);
         }
         [HttpPost("add-new-user")]
-        public IActionResult AddUser([FromBody]UserCreationDto userToAdd)
+        public IActionResult AddUser([FromBody] UserCreationDto userToAdd)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
-                return BadRequest("Some properties are missing");     
+                return BadRequest("Some properties are missing");
             }
             else
             {
@@ -48,20 +48,20 @@ namespace TaskManagerDuplicate.API.Controller
                 return null;
             }
         }
-        [HttpPut("update-user/{id}")]
-        public IActionResult UpdateUser([FromRoute]string userId,[FromBody]UpdateUserDto userToUpdate) 
+        [HttpPut("update-user/{userId}")]
+        public IActionResult UpdateUser([FromRoute] string userId, [FromBody] UpdateUserDto userToUpdate)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Some properties are missing");
             if (string.IsNullOrEmpty(userId))
-               return BadRequest("id cannot be empty"); 
-                var response = _userService.UpdateUser(userToUpdate,userId);
-           if (response.HasUpdated)
-               return Ok(response.Message); 
-               return Ok(response.Message);      
+                return BadRequest("id cannot be empty");
+            var response = _userService.UpdateUser(userToUpdate, userId);
+            if (response.HasUpdated)
+                return Ok(response.Message);
+            return Ok(response.Message);   //this or
         }
         [HttpDelete("delete-user/{userId}")]
-        public IActionResult DeleteUser([FromRoute]string userId) 
+        public IActionResult DeleteUser([FromRoute] string userId)
         {
             if (string.IsNullOrEmpty(userId))
             {
@@ -70,7 +70,19 @@ namespace TaskManagerDuplicate.API.Controller
             var response = _userService.DeleteUser(userId);
             if (response.HasDeleted)
                 return Ok(response.Message);
-                return NotFound(response.Message);
+            return NotFound(response.Message);
+        }
+        [HttpPatch("partial-update-of-user-properties/{userId}")]
+        public IActionResult UpdateUserPartially(string userId, PartialUserUpdateDto userToUpdate)
+        {
+            if (string.IsNullOrEmpty(userId))
+                return BadRequest("user id cannot be empty");
+            if (!ModelState.IsValid) 
+                return BadRequest("some properties are missing");
+            var response = _userService.UpdateUserPartially(userId,userToUpdate);
+            if (response.HasUpdated)
+                return Ok(response.Message);
+            return BadRequest(response.Message);  //this
         }
     }
 }

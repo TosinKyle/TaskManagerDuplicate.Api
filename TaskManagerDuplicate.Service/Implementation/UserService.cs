@@ -131,5 +131,23 @@ namespace TaskManagerDuplicate.Service.Implementation
             };
             return response3;
         }
+
+        public UpdateResponseDto UpdateUserPartially(string userId, PartialUserUpdateDto userToUpdate)
+        {
+            var response = _userRepository.GetUserById(userId);
+            if (response != null)
+            {
+                User user = new User
+                {
+                    UserName = userToUpdate.UserName,
+                    PhoneNumber = userToUpdate.PhoneNumber,
+                };
+                bool response1 = _userRepository.PartialUserUpdate(user);
+                if (response1)
+                    return new UpdateResponseDto { HasUpdated = true, Message = "User was deleted successfully" };
+                    return new UpdateResponseDto { HasUpdated = false, Message = "Something went wrong" };
+            }
+                return new UpdateResponseDto { HasUpdated = false, Message = "User not found" };
+        }
     }
 }
