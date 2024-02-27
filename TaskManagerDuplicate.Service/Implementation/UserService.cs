@@ -142,7 +142,7 @@ namespace TaskManagerDuplicate.Service.Implementation
                     UserName = userToUpdate.UserName,
                     PhoneNumber = userToUpdate.PhoneNumber,
                 };
-                bool response1 = _userRepository.PartialUserUpdate(user);
+                bool response1 = _userRepository.UpdateUser(user);
                 if (response1)
                     return new UpdateResponseDto { HasUpdated = true, Message = "User was deleted successfully" };
                     return new UpdateResponseDto { HasUpdated = false, Message = "Something went wrong" };
