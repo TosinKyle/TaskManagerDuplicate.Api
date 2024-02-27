@@ -14,6 +14,5 @@ namespace TaskManagerDuplicate.Data.Repositories.Interface
         public bool DeleteUser(User userToRemove);
         public User GetUserById(string userId);
         public IQueryable<User> GetAllUsers();
-        public bool PartialUserUpdate(User userToBeUpdated);
     }
 }
