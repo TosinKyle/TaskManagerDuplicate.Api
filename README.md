@@ -4,3 +4,7 @@
 -[] Clone repository to the local computer
 -[] Create a visual studio Web Api project
 -[] Create the repository,data,domain and service class libraries
+-[] Set up the domain class libraries
+-[] Implement the repositories  
+-[] Implement the Services
+-[] Implement the Controllers
