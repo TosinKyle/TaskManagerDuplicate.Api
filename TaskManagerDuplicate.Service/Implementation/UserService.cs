@@ -134,20 +134,32 @@ namespace TaskManagerDuplicate.Service.Implementation
 
         public UpdateResponseDto UpdateUserPartially(string userId, PartialUserUpdateDto userToUpdate)
         {
-            var response = _userRepository.GetUserById(userId);
-            if (response != null)
+            var user = _userRepository.GetUserById(userId);
+            if (user != null)
             {
-                User user = new User
-                {
-                    UserName = userToUpdate.UserName,
-                    PhoneNumber = userToUpdate.PhoneNumber,
-                };
+                user.UserName = userToUpdate.UserName;
+                user.PhoneNumber = userToUpdate.PhoneNumber;
                 bool response1 = _userRepository.UpdateUser(user);
                 if (response1)
-                    return new UpdateResponseDto { HasUpdated = true, Message = "User was deleted successfully" };
-                    return new UpdateResponseDto { HasUpdated = false, Message = "Something went wrong" };
+                {
+                    UpdateResponseDto response2 = new UpdateResponseDto
+                    {
+                        HasUpdated = true,
+                        Message = "User was successfully updated",
+                    };
+                    return response2;
+                }
+                else
+                {
+                    UpdateResponseDto response3 = new UpdateResponseDto
+                    {
+                        HasUpdated = false,
+                        Message = "Something went wrong while updating the user",
+                    };
+                    return response3;
+                }
             }
-                return new UpdateResponseDto { HasUpdated = false, Message = "User not found" };
+                return new UpdateResponseDto   { HasUpdated = false,  Message = "User not found"};
         }
     }
 }
