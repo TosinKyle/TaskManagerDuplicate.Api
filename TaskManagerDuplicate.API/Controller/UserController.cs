@@ -72,7 +72,7 @@ namespace TaskManagerDuplicate.API.Controller
                 return Ok(response.Message);
             return NotFound(response.Message);
         }
-        [HttpPatch("partial-update-of-user-properties/{userId}")]
+        [HttpPatch("partial-user-update/{userId}")]
         public IActionResult UpdateUserPartially(string userId, PartialUserUpdateDto userToUpdate)
         {
             if (string.IsNullOrEmpty(userId))
