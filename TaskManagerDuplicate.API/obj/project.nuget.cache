@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "99qaqJTPgUYNpz88dsHR2wEc3i/kOozpnPCToDKXiyJG2bAlu6zE5AMEUkc0kvs2dgomgy4cmyi4WtjaJ28Ysw==",
+  "dgSpecHash": "U8VJ6lD1XFu5LAxepSHKc1nSZR0o/NP3R3ERDz+cHmviSN0Vvzq4bTINIL/eAFF7YphzVUaps60CSxP015erzw==",
   "success": true,
   "projectFilePath": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.API\\TaskManagerDuplicate.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",

@@ -24,7 +24,12 @@ namespace TaskManagerDuplicate.Data.Repositories.Implementation
         }
 
         public IQueryable<User> GetAllUsers()=> _entityFrameworkContext.User;
+
+        public User GetUserByEmail(string userEmail) => _entityFrameworkContext.User.FirstOrDefault(x => x.EmailAddress==userEmail);
+
         public User GetUserById(string userId)=> _entityFrameworkContext.User.FirstOrDefault(x => x.Id == userId);
+
+        public User GetUserByPassword(string Password) => _entityFrameworkContext.User.FirstOrDefault(x => x.PasswordHash==Password);
 
         public bool UpdateUser(User userToUpdate)
         {

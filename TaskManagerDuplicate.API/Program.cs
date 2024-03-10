@@ -2,8 +2,14 @@ using Microsoft.EntityFrameworkCore;
 using TaskManagerDuplicate.Data.Context;
 using TaskManagerDuplicate.Data.Repositories.Implementation;
 using TaskManagerDuplicate.Data.Repositories.Interface;
+using TaskManagerDuplicate.Domain.PasswordHasher.Interface;
+using TaskManagerDuplicate.Domain.PasswordHasher.Implementation;
 using TaskManagerDuplicate.Service.Implementation;
 using TaskManagerDuplicate.Service.Interface;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 namespace TaskManagerDuplicate.API
 {
@@ -24,6 +30,21 @@ namespace TaskManagerDuplicate.API
             builder.Services.AddScoped<IToDoTaskRepository,ToDoTaskRepository>();
             builder.Services.AddScoped<IToDoTaskService,ToDoTaskService>();
             builder.Services.AddScoped<IUserService,UserService>();
+            builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer
+                (options => 
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+
+                };
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,6 +53,7 @@ namespace TaskManagerDuplicate.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 

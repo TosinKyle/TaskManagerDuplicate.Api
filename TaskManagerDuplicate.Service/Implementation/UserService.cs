@@ -1,6 +1,7 @@
 ﻿using TaskManagerDuplicate.Data.Repositories.Interface;
 using TaskManagerDuplicate.Domain.DataTransferObjects;
 using TaskManagerDuplicate.Domain.DbModels;
+using TaskManagerDuplicate.Domain.PasswordHasher.Interface;
 using TaskManagerDuplicate.Service.Interface;
 
 namespace TaskManagerDuplicate.Service.Implementation
@@ -8,12 +9,16 @@ namespace TaskManagerDuplicate.Service.Implementation
     public class UserService : IUserService 
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository) 
+        private readonly IPasswordHasher _passwordHasher;
+        public UserService(IUserRepository userRepository,IPasswordHasher passwordHasher) 
         {
          _userRepository = userRepository;
+         _passwordHasher = passwordHasher;
         }
         public string AddUser(UserCreationDto userToAdd)
         {
+            var passwordHash = _passwordHasher.HashPassword(userToAdd.Password);
+            var saltedPassword = _passwordHasher.SaltedPassword(userToAdd.Password);
             User userToBeAdded = new User
             {
 
@@ -22,8 +27,8 @@ namespace TaskManagerDuplicate.Service.Implementation
                 UserName = userToAdd.UserName,
                 EmailAddress = userToAdd.EmailAddress,
                 PhoneNumber = userToAdd.PhoneNumber,
-                PasswordHash = userToAdd.Password,
-                PasswordSalt = userToAdd.Password,
+                PasswordHash = passwordHash,
+                PasswordSalt = saltedPassword,
                 ImageUrl = userToAdd.ProfilePicture
             };
             var response = _userRepository.AddUser(userToBeAdded);
@@ -93,6 +98,24 @@ namespace TaskManagerDuplicate.Service.Implementation
                 };
                 return singleUser;
             }
+        }
+
+        public string GetUserByEmail(string userEmail)
+        {
+           var user=_userRepository.GetUserByEmail(userEmail);
+            if (user == null)
+                return null;
+            else
+                return user.EmailAddress;
+        }
+
+        public string GetUserByPassword(string Password)
+        {
+            var user = _userRepository. GetUserByPassword(Password);
+            if (user == null)
+                return null;
+            else
+                return user.UserName;
         }
 
         public UpdateResponseDto UpdateUser(UpdateUserDto userToUpdate, string userId)
