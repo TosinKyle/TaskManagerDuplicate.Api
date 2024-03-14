@@ -8,16 +8,17 @@ namespace TaskManagerDuplicate.API.Controller
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService; //why faint
+        private readonly IUserService _userService;
         public UserController(IUserService userService)
         {
             _userService = userService;
         }
-        [HttpGet("get-user-by-id/{id}")]
+
+       [HttpGet("get-user-by-id/{id}")]
         public IActionResult GetUserById([FromRoute] string id)
         {
             if (string.IsNullOrEmpty(id))
-                return BadRequest("id cannot be null or empty");
+                return BadRequest("Id cannot be null or empty");
             DisplaySingleUserDto singleUser = _userService.GetSingleUserById(id);
             if (singleUser != null)
                 return Ok(singleUser);
@@ -28,7 +29,7 @@ namespace TaskManagerDuplicate.API.Controller
         {
             List<UserListDto> userList = _userService.GetAllUsers();
             if (userList.Count < 1)
-                return NotFound("user list is empty");
+                return NotFound("User list is empty");
             return Ok(userList);
         }
         [HttpPost("add-new-user")]
@@ -37,7 +38,7 @@ namespace TaskManagerDuplicate.API.Controller
             if (!ModelState.IsValid)
             {
                 return BadRequest("Some properties are missing");
-            }
+            }           
             else
             {
                 var response = _userService.AddUser(userToAdd);
@@ -45,7 +46,8 @@ namespace TaskManagerDuplicate.API.Controller
                 {
                     return Ok($"User has been added successfully: {response}");
                 }
-                return null;
+                else
+                return BadRequest("User Already Exists!");
             }
         }
         [HttpPut("update-user/{userId}")]
@@ -54,7 +56,7 @@ namespace TaskManagerDuplicate.API.Controller
             if (!ModelState.IsValid)
                 return BadRequest("Some properties are missing");
             if (string.IsNullOrEmpty(userId))
-                return BadRequest("id cannot be empty");
+                return BadRequest("Id cannot be empty");
             var response = _userService.UpdateUser(userToUpdate, userId);
             if (response.HasUpdated)
                 return Ok(response.Message);
@@ -65,7 +67,7 @@ namespace TaskManagerDuplicate.API.Controller
         {
             if (string.IsNullOrEmpty(userId))
             {
-                return BadRequest("id cannot be empty");
+                return BadRequest("Id cannot be empty");
             }
             var response = _userService.DeleteUser(userId);
             if (response.HasDeleted)
@@ -76,9 +78,9 @@ namespace TaskManagerDuplicate.API.Controller
         public IActionResult UpdateUserPartially(string userId, PartialUserUpdateDto userToUpdate)
         {
             if (string.IsNullOrEmpty(userId))
-                return BadRequest("user id cannot be empty");
+                return BadRequest("User id cannot be empty");
             if (!ModelState.IsValid) 
-                return BadRequest("some properties are missing");
+                return BadRequest("Some properties are missing");
             var response = _userService.UpdateUserPartially(userId,userToUpdate);
             if (response.HasUpdated)
                 return Ok(response.Message);

@@ -8,8 +8,7 @@ namespace TaskManagerDuplicate.Domain.PasswordHasher.Interface
 {
     public interface IPasswordHasher
     {
-        public string HashPassword(string password);
-        public bool VerifyPassword(string PasswordHash, string inputPassword);
-        public string SaltedPassword(string password);
+        public string Encrypt(string password);
+        public string Decrypt(string passwordHash);
     }
 }

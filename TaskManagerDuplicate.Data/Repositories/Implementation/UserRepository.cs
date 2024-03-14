@@ -7,14 +7,25 @@ namespace TaskManagerDuplicate.Data.Repositories.Implementation
     public class UserRepository : IUserRepository
     {
         private readonly EntityFrameworkContext _entityFrameworkContext;
+
         public UserRepository(EntityFrameworkContext entityFrameworkContext)
         {
          _entityFrameworkContext = entityFrameworkContext;
         }
         public bool AddUser(User userToAdd)
         {
-            _entityFrameworkContext.User.Add(userToAdd);
-           return _entityFrameworkContext.SaveChanges()>0;
+            var userEmail = _entityFrameworkContext.User.FirstOrDefault(x => x.EmailAddress == userToAdd.EmailAddress);
+
+            if (userEmail == null)
+            {
+                _entityFrameworkContext.User.Add(userToAdd);
+                return _entityFrameworkContext.SaveChanges()>0;
+            }
+            else
+            {
+                return false;
+                //return _entityFrameworkContext.SaveChanges()==0;
+            }
         }
 
         public bool DeleteUser(User userToRemove)
@@ -25,12 +36,9 @@ namespace TaskManagerDuplicate.Data.Repositories.Implementation
 
         public IQueryable<User> GetAllUsers()=> _entityFrameworkContext.User;
 
-        public User GetUserByEmail(string userEmail) => _entityFrameworkContext.User.FirstOrDefault(x => x.EmailAddress==userEmail);
+        public User GetUserByEmail(string userEmail)=> _entityFrameworkContext.User.FirstOrDefault(x => x.EmailAddress == userEmail);
 
         public User GetUserById(string userId)=> _entityFrameworkContext.User.FirstOrDefault(x => x.Id == userId);
-
-        public User GetUserByPassword(string Password) => _entityFrameworkContext.User.FirstOrDefault(x => x.PasswordHash==Password);
-
         public bool UpdateUser(User userToUpdate)
         {
             _entityFrameworkContext.User.Update(userToUpdate);

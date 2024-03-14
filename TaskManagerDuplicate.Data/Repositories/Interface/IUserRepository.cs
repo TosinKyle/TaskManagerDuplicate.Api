@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaskManagerDuplicate.Domain.DbModels;
+﻿using TaskManagerDuplicate.Domain.DbModels;
 
 namespace TaskManagerDuplicate.Data.Repositories.Interface
 {
@@ -15,6 +10,5 @@ namespace TaskManagerDuplicate.Data.Repositories.Interface
         public User GetUserById(string userId);
         public IQueryable<User> GetAllUsers();
         public User GetUserByEmail(string userEmail);
-        public User GetUserByPassword(string password); 
     }
 }

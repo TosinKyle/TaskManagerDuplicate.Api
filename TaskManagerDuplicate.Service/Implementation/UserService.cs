@@ -4,6 +4,7 @@ using TaskManagerDuplicate.Domain.DbModels;
 using TaskManagerDuplicate.Domain.PasswordHasher.Interface;
 using TaskManagerDuplicate.Service.Interface;
 
+
 namespace TaskManagerDuplicate.Service.Implementation
 {
     public class UserService : IUserService 
@@ -17,8 +18,8 @@ namespace TaskManagerDuplicate.Service.Implementation
         }
         public string AddUser(UserCreationDto userToAdd)
         {
-            var passwordHash = _passwordHasher.HashPassword(userToAdd.Password);
-            var saltedPassword = _passwordHasher.SaltedPassword(userToAdd.Password);
+            var passwordHash = _passwordHasher.Encrypt(userToAdd.Password);
+
             User userToBeAdded = new User
             {
 
@@ -28,7 +29,7 @@ namespace TaskManagerDuplicate.Service.Implementation
                 EmailAddress = userToAdd.EmailAddress,
                 PhoneNumber = userToAdd.PhoneNumber,
                 PasswordHash = passwordHash,
-                PasswordSalt = saltedPassword,
+                PasswordSalt = passwordHash,
                 ImageUrl = userToAdd.ProfilePicture
             };
             var response = _userRepository.AddUser(userToBeAdded);
@@ -100,24 +101,42 @@ namespace TaskManagerDuplicate.Service.Implementation
             }
         }
 
-        public string GetUserByEmail(string userEmail)
-        {
-           var user=_userRepository.GetUserByEmail(userEmail);
-            if (user == null)
-                return null;
-            else
-                return user.EmailAddress;
-        }
-
-        public string GetUserByPassword(string Password)
-        {
-            var user = _userRepository. GetUserByPassword(Password);
-            if (user == null)
-                return null;
-            else
-                return user.UserName;
-        }
-
+        public LoginResponseDto Login(UserLoginDto userLogin)
+         {
+             var response = _userRepository.GetUserByEmail(userLogin.EmailAddress);
+             if (response == null)
+             {
+                return new LoginResponseDto
+                {
+                    IsMatched = false,
+                    Message = "User with this email address does not exist",
+                };
+             }
+             else 
+             {
+                var response1 = _passwordHasher.Decrypt(response.PasswordHash);//decrypt passwordhash
+                if (response1 == userLogin.Password)
+                {
+                    return new LoginResponseDto
+                    {
+                        IsMatched = true,
+                        Message = "User has logged in successfully",
+                    };
+                }
+                else 
+                {
+                    return new LoginResponseDto
+                    {
+                        IsMatched = false,
+                        Message = "The password input is incorrect",
+                    }; 
+                }
+              /*  var hashInputPassword = _passwordHasher.Encrypt(userLogin.Password);
+                if (hashInputPassword == response.PasswordHash)
+                    return true;
+                return false;*/                   
+             }
+         }
         public UpdateResponseDto UpdateUser(UpdateUserDto userToUpdate, string userId)
         {
             var user = _userRepository.GetUserById(userId);
