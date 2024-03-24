@@ -14,20 +14,9 @@ namespace TaskManagerDuplicate.Data.Repositories.Implementation
         }
         public bool AddUser(User userToAdd)
         {
-            var userEmail = _entityFrameworkContext.User.FirstOrDefault(x => x.EmailAddress == userToAdd.EmailAddress);
-
-            if (userEmail == null)
-            {
-                _entityFrameworkContext.User.Add(userToAdd);
-                return _entityFrameworkContext.SaveChanges()>0;
-            }
-            else
-            {
-                return false;
-                //return _entityFrameworkContext.SaveChanges()==0;
-            }
+            _entityFrameworkContext.User.Add(userToAdd);
+            return _entityFrameworkContext.SaveChanges() > 0;
         }
-
         public bool DeleteUser(User userToRemove)
         {
             _entityFrameworkContext.User.Remove(userToRemove);

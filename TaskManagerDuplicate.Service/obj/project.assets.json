@@ -2833,6 +2833,16 @@
         "runtime": {
           "bin/placeholder/TaskManagerDuplicate.Domain.dll": {}
         }
+      },
+      "TaskManagerDuplicate.Helper/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/TaskManagerDuplicate.Helper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskManagerDuplicate.Helper.dll": {}
+        }
       }
     }
   },
@@ -8333,12 +8343,18 @@
       "type": "project",
       "path": "../TaskManagerDuplicate.Domain/TaskManagerDuplicate.Domain.csproj",
       "msbuildProject": "../TaskManagerDuplicate.Domain/TaskManagerDuplicate.Domain.csproj"
+    },
+    "TaskManagerDuplicate.Helper/1.0.0": {
+      "type": "project",
+      "path": "../TaskManagerDuplicate.Helper/TaskManagerDuplicate.Helper.csproj",
+      "msbuildProject": "../TaskManagerDuplicate.Helper/TaskManagerDuplicate.Helper.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "TaskManagerDuplicate.Data >= 1.0.0",
-      "TaskManagerDuplicate.Domain >= 1.0.0"
+      "TaskManagerDuplicate.Domain >= 1.0.0",
+      "TaskManagerDuplicate.Helper >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -8373,6 +8389,9 @@
             },
             "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.Domain\\TaskManagerDuplicate.Domain.csproj": {
               "projectPath": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.Domain\\TaskManagerDuplicate.Domain.csproj"
+            },
+            "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.Helper\\TaskManagerDuplicate.Helper.csproj": {
+              "projectPath": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.Helper\\TaskManagerDuplicate.Helper.csproj"
             }
           }
         }

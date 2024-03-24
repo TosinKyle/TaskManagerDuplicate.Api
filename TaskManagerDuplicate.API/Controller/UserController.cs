@@ -36,19 +36,14 @@ namespace TaskManagerDuplicate.API.Controller
         public IActionResult AddUser([FromBody] UserCreationDto userToAdd)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest("Some properties are missing");
-            }           
-            else
-            {
+                return BadRequest("Some properties are missing");           
                 var response = _userService.AddUser(userToAdd);
-                if (response != null)
+                if (!response.HasAdded)
                 {
-                    return Ok($"User has been added successfully: {response}");
+                    return BadRequest(response.Message);
                 }
                 else
-                return BadRequest("User Already Exists!");
-            }
+                return Ok($"{response.Message}: {response.Id}");
         }
         [HttpPut("update-user/{userId}")]
         public IActionResult UpdateUser([FromRoute] string userId, [FromBody] UpdateUserDto userToUpdate)

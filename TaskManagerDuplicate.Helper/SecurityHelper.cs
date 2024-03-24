@@ -1,13 +1,13 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using TaskManagerDuplicate.Domain.PasswordHasher.Interface;
 
 
-namespace TaskManagerDuplicate.Domain.PasswordHasher.Implementation
+namespace TaskManagerDuplicate.Helper
 {
-    public class PasswordHasher : IPasswordHasher
+
+    public static class SecurityHelper
     {
-        public string Decrypt(string passwordHash)
+        public static string Decrypt(string passwordHash)
         {
             string EncryptionKey = "MAKV2SPBNI99214";
             passwordHash = passwordHash.Replace(" ", "+");
@@ -33,7 +33,7 @@ namespace TaskManagerDuplicate.Domain.PasswordHasher.Implementation
             return passwordHash;
         }
 
-        public string Encrypt(string password)
+        public static string Encrypt(string password)
         {
             string EncryptionKey = "MAKV2SPBNI99214";
             byte[] clearBytes = Encoding.Unicode.GetBytes(password);
@@ -59,3 +59,4 @@ namespace TaskManagerDuplicate.Domain.PasswordHasher.Implementation
         }
     }
 }
+

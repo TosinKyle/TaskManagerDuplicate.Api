@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Folder Include="ConfigModels\" />
+    <Folder Include="PasswordHasher\Implementation\" />
+    <Folder Include="PasswordHasher\Interface\" />
   </ItemGroup>
 
 </Project>

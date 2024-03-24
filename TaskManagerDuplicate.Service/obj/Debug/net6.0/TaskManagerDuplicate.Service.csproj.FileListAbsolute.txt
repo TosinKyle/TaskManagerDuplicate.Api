@@ -27,3 +27,5 @@ C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManage
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Service\bin\Debug\net6.0\TaskManagerDuplicate.Domain.pdb
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Service\obj\Debug\net6.0\TaskManagerDuplicate.Service.csproj.CopyComplete
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Service\obj\Debug\net6.0\ref\TaskManagerDuplicate.Service.dll
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Service\bin\Debug\net6.0\TaskManagerDuplicate.Helper.dll
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Service\bin\Debug\net6.0\TaskManagerDuplicate.Helper.pdb

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TaskManagerDuplicate.Domain.DataTransferObjects;
 using TaskManagerDuplicate.Service.Interface;
 
 namespace TaskManagerDuplicate.API.Controller
@@ -12,5 +13,6 @@ namespace TaskManagerDuplicate.API.Controller
         {
             _taskService = taskService;
         }
+        
     }
 }

@@ -3025,12 +3025,23 @@
           "bin/placeholder/TaskManagerDuplicate.Domain.dll": {}
         }
       },
+      "TaskManagerDuplicate.Helper/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/TaskManagerDuplicate.Helper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskManagerDuplicate.Helper.dll": {}
+        }
+      },
       "TaskManagerDuplicate.Service/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "TaskManagerDuplicate.Data": "1.0.0",
-          "TaskManagerDuplicate.Domain": "1.0.0"
+          "TaskManagerDuplicate.Domain": "1.0.0",
+          "TaskManagerDuplicate.Helper": "1.0.0"
         },
         "compile": {
           "bin/placeholder/TaskManagerDuplicate.Service.dll": {}
@@ -9039,6 +9050,11 @@
       "type": "project",
       "path": "../TaskManagerDuplicate.Domain/TaskManagerDuplicate.Domain.csproj",
       "msbuildProject": "../TaskManagerDuplicate.Domain/TaskManagerDuplicate.Domain.csproj"
+    },
+    "TaskManagerDuplicate.Helper/1.0.0": {
+      "type": "project",
+      "path": "../TaskManagerDuplicate.Helper/TaskManagerDuplicate.Helper.csproj",
+      "msbuildProject": "../TaskManagerDuplicate.Helper/TaskManagerDuplicate.Helper.csproj"
     },
     "TaskManagerDuplicate.Service/1.0.0": {
       "type": "project",

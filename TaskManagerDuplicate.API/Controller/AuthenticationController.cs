@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaskManagerDuplicate.Domain.DataTransferObjects;
 using TaskManagerDuplicate.Service.Interface;
 
@@ -6,6 +7,7 @@ namespace TaskManagerDuplicate.API.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthenticationController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -14,6 +16,7 @@ namespace TaskManagerDuplicate.API.Controller
             _userService = userService;
         }
         [HttpPost("login")]
+        [AllowAnonymous]
         public IActionResult Login([FromBody]UserLoginDto userLogin) 
         {
             if (!ModelState.IsValid)

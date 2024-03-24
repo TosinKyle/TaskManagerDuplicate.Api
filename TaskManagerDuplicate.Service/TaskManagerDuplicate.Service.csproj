@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TaskManagerDuplicate.Data\TaskManagerDuplicate.Data.csproj" />
     <ProjectReference Include="..\TaskManagerDuplicate.Domain\TaskManagerDuplicate.Domain.csproj" />
+    <ProjectReference Include="..\TaskManagerDuplicate.Helper\TaskManagerDuplicate.Helper.csproj" />
   </ItemGroup>
 
 </Project>

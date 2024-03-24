@@ -2,8 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using TaskManagerDuplicate.Data.Context;
 using TaskManagerDuplicate.Data.Repositories.Implementation;
 using TaskManagerDuplicate.Data.Repositories.Interface;
-using TaskManagerDuplicate.Domain.PasswordHasher.Interface;
-using TaskManagerDuplicate.Domain.PasswordHasher.Implementation;
 using TaskManagerDuplicate.Service.Implementation;
 using TaskManagerDuplicate.Service.Interface;
 using Microsoft.IdentityModel.Tokens;
@@ -30,7 +28,6 @@ namespace TaskManagerDuplicate.API
             builder.Services.AddScoped<IToDoTaskRepository,ToDoTaskRepository>();
             builder.Services.AddScoped<IToDoTaskService,ToDoTaskService>();
             builder.Services.AddScoped<IUserService,UserService>();
-            builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -10,3 +10,15 @@ C:\Users\oogunjemilua\OneDrive - Central Securities Clearing System Plc\Document
 C:\Users\oogunjemilua\OneDrive - Central Securities Clearing System Plc\Documents\MINE\PROG. LESSONS\TaskManagerDuplicate.API\TaskManagerDuplicate.Helper\obj\Debug\net6.0\refint\TaskManagerDuplicate.Helper.dll
 C:\Users\oogunjemilua\OneDrive - Central Securities Clearing System Plc\Documents\MINE\PROG. LESSONS\TaskManagerDuplicate.API\TaskManagerDuplicate.Helper\obj\Debug\net6.0\TaskManagerDuplicate.Helper.pdb
 C:\Users\oogunjemilua\OneDrive - Central Securities Clearing System Plc\Documents\MINE\PROG. LESSONS\TaskManagerDuplicate.API\TaskManagerDuplicate.Helper\obj\Debug\net6.0\ref\TaskManagerDuplicate.Helper.dll
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\bin\Debug\net6.0\TaskManagerDuplicate.Helper.deps.json
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\bin\Debug\net6.0\TaskManagerDuplicate.Helper.dll
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\bin\Debug\net6.0\TaskManagerDuplicate.Helper.pdb
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\TaskManagerDuplicate.Helper.csproj.AssemblyReference.cache
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\TaskManagerDuplicate.Helper.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\TaskManagerDuplicate.Helper.AssemblyInfoInputs.cache
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\TaskManagerDuplicate.Helper.AssemblyInfo.cs
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\TaskManagerDuplicate.Helper.csproj.CoreCompileInputs.cache
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\TaskManagerDuplicate.Helper.dll
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\refint\TaskManagerDuplicate.Helper.dll
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\TaskManagerDuplicate.Helper.pdb
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\ref\TaskManagerDuplicate.Helper.dll

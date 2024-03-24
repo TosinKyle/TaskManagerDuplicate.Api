@@ -9,7 +9,8 @@
       "TaskManagerDuplicate.Service/1.0.0": {
         "dependencies": {
           "TaskManagerDuplicate.Data": "1.0.0",
-          "TaskManagerDuplicate.Domain": "1.0.0"
+          "TaskManagerDuplicate.Domain": "1.0.0",
+          "TaskManagerDuplicate.Helper": "1.0.0"
         },
         "runtime": {
           "TaskManagerDuplicate.Service.dll": {}
@@ -1718,6 +1719,11 @@
         "runtime": {
           "TaskManagerDuplicate.Domain.dll": {}
         }
+      },
+      "TaskManagerDuplicate.Helper/1.0.0": {
+        "runtime": {
+          "TaskManagerDuplicate.Helper.dll": {}
+        }
       }
     }
   },
@@ -2825,6 +2831,11 @@
       "sha512": ""
     },
     "TaskManagerDuplicate.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TaskManagerDuplicate.Helper/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
