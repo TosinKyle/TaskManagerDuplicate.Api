@@ -10,6 +10,9 @@ namespace TaskManagerDuplicate.Service.Interface
         public DisplaySingleUserDto GetSingleUserById(string userId);
         public List<UserListDto> GetAllUsers();
         public UpdateResponseDto UpdateUserPartially(string userId, PartialUserUpdateDto userToUpdate);
-        public LoginResponseDto Login(UserLoginDto userLogin);
+        public DisplaySingleUserDto Login(UserLoginDto userLogin);
+        public DisplaySingleUserDto GetSingleUserByEmail(string userId);
+        public UpdateResponseDto ActivateUser(string userId);
+        public UpdateResponseDto DeactivateUser(string userId);
     }
 }

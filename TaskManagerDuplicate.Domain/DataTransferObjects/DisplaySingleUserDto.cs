@@ -12,6 +12,7 @@ namespace TaskManagerDuplicate.Domain.DataTransferObjects
         public DateTime CreatedOn { get; set; }
         public string PhoneNumber { get; set; }
         public string ProfilePicture { get; set; }
+        public bool IsActive { get; set; }
         public List<TaskListDto> UserTasks = new List<TaskListDto>(); 
     }
 }

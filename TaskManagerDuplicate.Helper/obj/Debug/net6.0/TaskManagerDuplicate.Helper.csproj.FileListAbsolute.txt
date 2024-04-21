@@ -22,3 +22,6 @@ C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManage
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\refint\TaskManagerDuplicate.Helper.dll
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\TaskManagerDuplicate.Helper.pdb
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\ref\TaskManagerDuplicate.Helper.dll
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\bin\Debug\net6.0\TaskManagerDuplicate.Domain.dll
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\bin\Debug\net6.0\TaskManagerDuplicate.Domain.pdb
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.Helper\obj\Debug\net6.0\TaskManagerDuplicate.Helper.csproj.CopyComplete

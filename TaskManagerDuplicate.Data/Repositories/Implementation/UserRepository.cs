@@ -4,7 +4,7 @@ using TaskManagerDuplicate.Domain.DbModels;
 
 namespace TaskManagerDuplicate.Data.Repositories.Implementation
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository 
     {
         private readonly EntityFrameworkContext _entityFrameworkContext;
 

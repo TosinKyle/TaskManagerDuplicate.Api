@@ -7,6 +7,10 @@ using TaskManagerDuplicate.Service.Interface;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using Microsoft.OpenApi.Models;
+using Optivem.Framework.Core.Domain;
+using System.Reflection;
+using TaskManagerDuplicate.Helper;
 
 namespace TaskManagerDuplicate.API
 {
@@ -15,6 +19,7 @@ namespace TaskManagerDuplicate.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            JWTTokenHelper.InstantiateConfiguration(builder.Configuration);  //TODO: STUDY
 
 
             // Add services to the container.
@@ -22,45 +27,82 @@ namespace TaskManagerDuplicate.API
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddDbContext<EntityFrameworkContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Task Manager",
+                    Version = "1.0",
+                    TermsOfService = new Uri("https://www.taskmanager.ng/"),
+                    Description = "This is an ASP.NET Api for managing tasks and activities.",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Contact Authors",
+                        Url = new Uri("https://www.taskmanager.ng/"),
+                        Email = "tosinkyle91@gmail.com"
+                    }
+                });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                       new OpenApiSecurityScheme
+                       {
+                           Reference = new OpenApiReference
+                           {
+                                Id = "Bearer", //The name of the previously defined security scheme.
+                                Type = ReferenceType.SecurityScheme
+                            }
+                       },new List<string>()
+                    }
+                });
+                var baseUrl = AppContext.BaseDirectory.ToString();
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFile));
+            });
+                builder.Services.AddDbContext<EntityFrameworkContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
             builder.Services.AddScoped<IUserRepository,UserRepository>();
             builder.Services.AddScoped<IToDoTaskRepository,ToDoTaskRepository>();
             builder.Services.AddScoped<IToDoTaskService,ToDoTaskService>();
             builder.Services.AddScoped<IUserService,UserService>();
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; 
-            }).
-                 AddJwtBearer(options =>
-                 {
-                     options.SaveToken = true;
-                     options.RequireHttpsMetadata = false;
-                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-                     {
-                         ValidateIssuer = true,
-                         ValidateAudience = true,
-                         ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                         ValidAudience = builder.Configuration["Jwt:Audience"],
-                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-                     };
-                 }); 
-              
+            builder.Services.AddScoped<IRoleRepository,RoleRepository>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>    {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                    };            
+                }
+               );
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment() 
+                || app.Environment.IsProduction())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
             app.UseAuthentication();
 
-            app.UseHttpsRedirection();
-
             app.UseAuthorization();
+            
+            app.UseHttpsRedirection();
 
             app.MapControllers();
 

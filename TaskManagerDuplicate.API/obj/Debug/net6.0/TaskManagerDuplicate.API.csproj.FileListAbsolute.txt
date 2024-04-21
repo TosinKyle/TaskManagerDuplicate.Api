@@ -204,3 +204,5 @@ C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManage
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.API\bin\Debug\net6.0\zh\Hangfire.Core.resources.dll
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.API\bin\Debug\net6.0\TaskManagerDuplicate.Helper.dll
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.API\bin\Debug\net6.0\TaskManagerDuplicate.Helper.pdb
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.API\bin\Debug\net6.0\TaskManagerDuplicate.API.xml
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.API\obj\Debug\net6.0\TaskManagerDuplicate.API.xml

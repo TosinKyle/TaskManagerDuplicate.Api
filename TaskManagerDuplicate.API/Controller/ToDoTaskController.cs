@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TaskManagerDuplicate.Domain.DataTransferObjects;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaskManagerDuplicate.Service.Interface;
 
 namespace TaskManagerDuplicate.API.Controller

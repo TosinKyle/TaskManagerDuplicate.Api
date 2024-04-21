@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "2W16Y+h4BhDD2b6Uz3TGGCv09AtE9J0438lnOdujmgG+ijR4lbl3rUEm6tKv9L7vWB+feR7xRtFKv3BSUXISrw==",
+  "dgSpecHash": "nhJSn7R7MXtJXJwKy7ML/aQc9uLk5Dt9DM5hqIu2QhcLIAl3g16wPRbD7aTJtLM8qF2v7+pKw1cdJSN16RbJ3g==",
   "success": true,
   "projectFilePath": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.Helper\\TaskManagerDuplicate.Helper.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.4.1\\microsoft.identitymodel.abstractions.7.4.1.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\7.4.1\\microsoft.identitymodel.jsonwebtokens.7.4.1.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.identitymodel.logging\\7.4.1\\microsoft.identitymodel.logging.7.4.1.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.4.1\\microsoft.identitymodel.tokens.7.4.1.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.4.1\\system.identitymodel.tokens.jwt.7.4.1.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

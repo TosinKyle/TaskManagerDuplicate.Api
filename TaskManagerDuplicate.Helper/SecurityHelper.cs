@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 
@@ -57,6 +58,36 @@ namespace TaskManagerDuplicate.Helper
             }
             return password;
         }
+/*        public DisplaySingleUserDto Authenticate(UserLoginDto userLogin)
+        {
+            var response = _userService.Login(userLogin);
+            if (response == null)
+            {
+                return null;
+            }
+            else
+            {
+                return response;
+            }
+        }
+        public string Generate(DisplaySingleUserDto user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
+            {
+             new Claim(ClaimTypes.NameIdentifier,user.UserName),
+             new Claim(ClaimTypes.Email,user.UserEmail),
+             new Claim(ClaimTypes.GivenName,user.UserName),
+             new Claim(ClaimTypes.Surname, user.LastName),
+             //new Claim(ClaimTypes.Role,user.Role),
+            };
+            var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Issuer"],
+                claims,
+                expires: DateTime.Now.AddMinutes(15),
+                signingCredentials: credentials);
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }*/
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using TaskManagerDuplicate.Data.Repositories.Interface;
+﻿
+using TaskManagerDuplicate.Data.Repositories.Interface;
 using TaskManagerDuplicate.Domain.DataTransferObjects;
 using TaskManagerDuplicate.Domain.DbModels;
 using TaskManagerDuplicate.Helper;
@@ -29,7 +30,7 @@ namespace TaskManagerDuplicate.Service.Implementation
                     PhoneNumber = userToAdd.PhoneNumber,
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordHash,
-                    ImageUrl = userToAdd.ProfilePicture
+                    ImageUrl = userToAdd.ProfilePicture,
                 };
                 var response = _userRepository.AddUser(userToBeAdded);
             if (response)
@@ -78,9 +79,9 @@ namespace TaskManagerDuplicate.Service.Implementation
             return userToReturn;
         }
 
-        public DisplaySingleUserDto GetSingleUserById(string userId)
+        public DisplaySingleUserDto GetSingleUserByEmail(string userEmail)
         {
-            var user = _userRepository.GetUserById(userId);
+            var user = _userRepository.GetUserByEmail(userEmail);
             if (user == null)
                 return null;
             else
@@ -100,9 +101,60 @@ namespace TaskManagerDuplicate.Service.Implementation
             }
         }
 
-        public LoginResponseDto Login(UserLoginDto userLogin)
-         {
-             var response = _userRepository.GetUserByEmail(userLogin.EmailAddress);
+        public DisplaySingleUserDto GetSingleUserById(string userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+            if (user == null)
+                return null;
+            else
+            {
+                DisplaySingleUserDto singleUser = new DisplaySingleUserDto
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    PhoneNumber = user.PhoneNumber,
+                    UserEmail = user.EmailAddress,
+                    ProfilePicture = user.ImageUrl,
+                    CreatedOn = user.CreatedOn,
+                    IsActive= user.IsActive
+                };
+                return singleUser;
+            }
+        }
+
+        public DisplaySingleUserDto Login(UserLoginDto userLogin)
+        {
+            var response = _userRepository.GetUserByEmail(userLogin.EmailAddress);
+            if (response == null)
+            {
+                return null;
+            }
+            else
+            {
+                var response1 = SecurityHelper.Decrypt(response.PasswordHash);
+                if (response1 != userLogin.Password)
+                {
+                    return null;
+                }
+                else
+                {
+                    return new DisplaySingleUserDto
+                    {
+                        UserId = response.Id,
+                        UserName = response.UserName,
+                        FirstName = response.FirstName,
+                        LastName = response.LastName,
+                        PhoneNumber = response.PhoneNumber,
+                        UserEmail = response.EmailAddress,
+                        ProfilePicture = response.ImageUrl,
+                        CreatedOn = response.CreatedOn,
+                        IsActive= response.IsActive
+                    };
+                }
+            }
+            /* var response = _userRepository.GetUserByEmail(userLogin.EmailAddress);
              if (response == null)
              {
                 return new LoginResponseDto
@@ -125,8 +177,8 @@ namespace TaskManagerDuplicate.Service.Implementation
                 }
                 return new LoginResponseDto{ IsMatched = true,  Message = "User has logged in successfully" };
                
-            }
-         }
+            }*/
+        }
         public UpdateResponseDto UpdateUser(UpdateUserDto userToUpdate, string userId)
         {
             var user = _userRepository.GetUserById(userId);
@@ -192,6 +244,38 @@ namespace TaskManagerDuplicate.Service.Implementation
                 }
             }
                 return new UpdateResponseDto   { HasUpdated = false,  Message = "User not found"};
+        }
+
+        public UpdateResponseDto ActivateUser(string userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+            if (user == null)
+                return new UpdateResponseDto { HasUpdated = false, Message = "User not found" };
+                if (!user.IsActive)
+                {
+                  user.IsActive = true;
+                  bool response = _userRepository.UpdateUser(user);
+                  if (response)
+                  return new UpdateResponseDto { HasUpdated = true, Message = "User has been activated" };
+                  return new UpdateResponseDto { HasUpdated = false, Message = "An error occurred whileactivating user" };
+                }
+                return new UpdateResponseDto { HasUpdated = false, Message = "User is currently active" };           
+        }
+
+        public UpdateResponseDto DeactivateUser(string userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+            if (user == null)
+                return new UpdateResponseDto { HasUpdated = false, Message = "User not found" };
+                if (user.IsActive == true)
+                {
+                    user.IsActive = false;
+                    bool response = _userRepository.UpdateUser(user);
+                    if (response)
+                        return new UpdateResponseDto { HasUpdated = true, Message = "User has been de-activated successfully" };
+                    return new UpdateResponseDto { HasUpdated = false, Message = "An error occurred while de-activating the user" };
+                }
+                return new UpdateResponseDto { HasUpdated = false, Message = "User is currently inactive" };
         }
     }
 }
