@@ -1,19 +1,25 @@
 ﻿using TaskManagerDuplicate.Data.Repositories.Interface;
 using TaskManagerDuplicate.Domain.DataTransferObjects;
 using TaskManagerDuplicate.Domain.DbModels;
+using TaskManagerDuplicate.Domain.PasswordHasher.Interface;
 using TaskManagerDuplicate.Service.Interface;
+
 
 namespace TaskManagerDuplicate.Service.Implementation
 {
     public class UserService : IUserService 
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository) 
+        private readonly IPasswordHasher _passwordHasher;
+        public UserService(IUserRepository userRepository,IPasswordHasher passwordHasher) 
         {
          _userRepository = userRepository;
+         _passwordHasher = passwordHasher;
         }
         public string AddUser(UserCreationDto userToAdd)
         {
+            var passwordHash = _passwordHasher.Encrypt(userToAdd.Password);
+
             User userToBeAdded = new User
             {
 
@@ -22,8 +28,8 @@ namespace TaskManagerDuplicate.Service.Implementation
                 UserName = userToAdd.UserName,
                 EmailAddress = userToAdd.EmailAddress,
                 PhoneNumber = userToAdd.PhoneNumber,
-                PasswordHash = userToAdd.Password,
-                PasswordSalt = userToAdd.Password,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordHash,
                 ImageUrl = userToAdd.ProfilePicture
             };
             var response = _userRepository.AddUser(userToBeAdded);
@@ -95,6 +101,42 @@ namespace TaskManagerDuplicate.Service.Implementation
             }
         }
 
+        public LoginResponseDto Login(UserLoginDto userLogin)
+         {
+             var response = _userRepository.GetUserByEmail(userLogin.EmailAddress);
+             if (response == null)
+             {
+                return new LoginResponseDto
+                {
+                    IsMatched = false,
+                    Message = "User with this email address does not exist",
+                };
+             }
+             else 
+             {
+                var response1 = _passwordHasher.Decrypt(response.PasswordHash);//decrypt passwordhash
+                if (response1 == userLogin.Password)
+                {
+                    return new LoginResponseDto
+                    {
+                        IsMatched = true,
+                        Message = "User has logged in successfully",
+                    };
+                }
+                else 
+                {
+                    return new LoginResponseDto
+                    {
+                        IsMatched = false,
+                        Message = "The password input is incorrect",
+                    }; 
+                }
+              /*  var hashInputPassword = _passwordHasher.Encrypt(userLogin.Password);
+                if (hashInputPassword == response.PasswordHash)
+                    return true;
+                return false;*/                   
+             }
+         }
         public UpdateResponseDto UpdateUser(UpdateUserDto userToUpdate, string userId)
         {
             var user = _userRepository.GetUserById(userId);
