@@ -12,8 +12,8 @@ using TaskManagerDuplicate.Data.Context;
 namespace TaskManagerDuplicate.Data.Migrations
 {
     [DbContext(typeof(EntityFrameworkContext))]
-    [Migration("20240415073755_made roleid nullable")]
-    partial class maderoleidnullable
+    [Migration("20240422195031_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

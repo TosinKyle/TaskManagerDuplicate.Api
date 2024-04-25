@@ -31,6 +31,8 @@ namespace TaskManagerDuplicate.Data.Repositories.Implementation
         public IQueryable<Role> GetAllRoles() => _entityFrameworkContext.Role;
         public Role GetRoleById(string roleId)=>_entityFrameworkContext.Role.FirstOrDefault(x => x.Id == roleId);
 
+        public Role GetRoleByRoleName(string roleName)=>_entityFrameworkContext.Role.FirstOrDefault(x => x.RoleName == roleName);
+
         public bool UpdateRole(Role roleToUpdate)
         {
             _entityFrameworkContext.Role.Update(roleToUpdate);

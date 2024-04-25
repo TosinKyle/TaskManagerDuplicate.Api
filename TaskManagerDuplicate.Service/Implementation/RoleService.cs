@@ -15,16 +15,25 @@ namespace TaskManagerDuplicate.Service.Implementation
         }
         public RoleCreationResponseDto AddRole(RoleCreationDto roleToAdd)
         {
-            Role roleToBeAdded = new Role 
+            var role = _roleRepository.GetRoleByRoleName(roleToAdd.RoleName);
+            if (role!=null)
             {
-             RoleName= roleToAdd.RoleName,
-             RoleDescription= roleToAdd.RoleDescription,
-            };
-            var response = _roleRepository.AddRole(roleToBeAdded);
-            if (response)
-                return new RoleCreationResponseDto { HasAdded = true, Message="Role was successfully added", Id=roleToBeAdded.Id };
-            else
-                return new RoleCreationResponseDto { HasAdded = false, Message = "Something went wrong while adding the role" };     
+                return new RoleCreationResponseDto { HasAdded = false, Message = "Role already exists" };
+            }
+            else 
+            {
+                Role roleToBeAdded = new Role
+                {
+                    RoleName = roleToAdd.RoleName,
+                    RoleDescription = roleToAdd.RoleDescription,
+                };
+                var response = _roleRepository.AddRole(roleToBeAdded);
+                if (response)
+                    return new RoleCreationResponseDto { HasAdded = true, Message = "Role was successfully added", Id = roleToBeAdded.Id };
+                else
+                    return new RoleCreationResponseDto { HasAdded = false, Message = "Something went wrong while adding the role" };
+            }
+                
         }
 
         public DeleteResponseDto DeleteRole(string id)
