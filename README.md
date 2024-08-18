@@ -8,3 +8,4 @@
 -[] Implement the repositories  
 -[] Implement the Services
 -[] Implement the Controllers
+-[] Git
