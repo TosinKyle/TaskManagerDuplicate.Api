@@ -29,24 +29,25 @@ namespace TaskManagerDuplicate.API.Controller
         /// <response code="400">Bad Request</response>
         /// <response code="500">Server Error</response>
         /// <returns></returns>
-        [HttpPost("login")]
-        [AllowAnonymous]
-        public IActionResult Login([FromBody] UserLoginDto userLoginDetails)
-        {
-            var user = _userService.Login(userLoginDetails);//to return user details
-            if (user != null)
-            {
-                if (user.IsActive)
-                {
-                    var token = JWTTokenHelper.Generate(user);  //gen token based on user details
-                    return Ok($"Here is your sign in token :{token}");
-                }
-                else
-                {
-                    return BadRequest("User is inactive");
-                }
-            }
-            return BadRequest("Cannot generate token due to incorrect details");
-        }
+        /*[HttpPost("login")]
+        [AllowAnonymous]*/
+        /* public IActionResult Login([FromBody] UserLoginDto userLoginDetails)
+         {
+             var user = await _userService.LoginAsync(userLoginDetails);//to return user details
+             if (user != null)
+             {
+                 if (user.IsActive)
+                 {
+                     var token = JWTTokenHelper.Generate(user);  //gen token based on user details
+                     return Ok($"Here is your sign in token :{token}");
+                 }
+                 else
+                 {
+                     return BadRequest("User is inactive");
+                 }
+             }
+             return BadRequest("Cannot generate token due to incorrect details");
+         }*/
+    
     }
 }

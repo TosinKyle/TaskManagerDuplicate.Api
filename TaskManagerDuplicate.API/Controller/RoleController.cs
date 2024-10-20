@@ -7,7 +7,7 @@ namespace TaskManagerDuplicate.API.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoleController : ControllerBase
+    public class RoleController : BaseController
     {
         private readonly IRoleService _roleService;
         public RoleController(IRoleService roleService)
@@ -15,64 +15,83 @@ namespace TaskManagerDuplicate.API.Controller
          _roleService = roleService;
         }
 
-        /*/// <summary>
+        /// <summary>
         /// This endpoint is responsible for adding a new role to the database
         /// </summary>
         /// <param name="roleToBeAdded"></param>
-        /// <response></response>
-        /// <response></response>
-        /// <response></response>
-        /// <returns></returns>*/
+        /// <returns></returns>
         
         [HttpPost("add-new-role")]
-        public IActionResult AddRole([FromBody] RoleCreationDto roleToBeAdded) 
+        public async Task<IActionResult> AddRoleAsync([FromBody] RoleCreationDto roleToBeAdded) 
         {
-            if (!ModelState.IsValid)
+            var response = await _roleService.AddRoleAsync(roleToBeAdded);
+            return BuildHttpResponse(response);
+            /*if (!ModelState.IsValid)
                 return BadRequest("Some properties are missing");
                 var response = _roleService.AddRole(roleToBeAdded);
                 if (response.HasAdded)
                     return Ok($"{response.Message}:{response.Id}");
-                return BadRequest(response.Message);
+                return BadRequest(response.Message);*/
+
         }
+        /// <summary>
+        /// This endpoint is responsible for deleting a role in the database
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        
         [HttpDelete("delete-role/{roleId}")]
-        public IActionResult DeleteRole([FromRoute]string roleId)
-        {
-            if (string.IsNullOrEmpty(roleId))
-                return BadRequest("Role id cannot be empty");
-            var response = _roleService.DeleteRole(roleId);
-                if (response.HasDeleted)
-                    return Ok(response.Message);
-                return BadRequest(response.Message);
-        }
+        public async Task<IActionResult> DeleteRoleAsync([FromRoute] string roleId) => BuildHttpResponse(await _roleService.DeleteRoleAsync(roleId));
+        /// <summary>
+        /// This endpoint is responsible for getting a role by inputting the role id
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        
         [HttpGet("get-role-by-id/{roleId}")]
-        public IActionResult GetRoleById([FromRoute]string roleId)
+        public async Task<IActionResult> GetRoleById([FromRoute]string roleId)
         {
-            if (string.IsNullOrEmpty(roleId))
-                return BadRequest("Role id cannot be null");
-            var response=_roleService.GetRole(roleId);
-            if (response!=null)
-                return Ok(response);
-            return BadRequest("Role was not found");
+            var response = await _roleService.GetRoleAsync(roleId);
+            return BuildHttpResponse(response);
         }
+        /// <summary>
+        /// This endpoint is responsible for getting all roles from the database
+        /// </summary>
+        /// <param name="page"></param>
+        /// /// <param name="perPage"></param>
+        /// <returns></returns>
+        
         [HttpGet("get-all-roles")]
-        public IActionResult GetAllRoles() 
+        public async Task<IActionResult> GetAllRoles([FromQuery]int page,[FromQuery] int perPage) 
         {
-         List<RoleListDto> roleList = _roleService.GetAllRoles();
-            if (roleList.Count<1)
-             return BadRequest("No role was found");
-            return Ok(roleList);
+           var roleList = await _roleService.GetAllRolesAsync(page, perPage);// normally can i do PaginatedList<roleList>
+           return BuildHttpResponse(roleList);
         }
-        [HttpPatch("update-role")]
-        public IActionResult UpdateRole(UpdateRoleDto roleToUpdate, string roleId) 
+        /// <summary>
+        /// This endpoint is responsible for updating a role
+        /// </summary>
+        /// <param name="roleToUpdate"></param>
+        /// /// <param name="roleId"></param>
+        /// <returns></returns>
+        
+        [HttpPatch("update-role/{roleId}")]
+        public async Task<IActionResult> UpdateRole([FromBody]UpdateRoleDto roleToUpdate, [FromRoute]string roleId) 
         {
-                if (string.IsNullOrEmpty(roleId))
-                    return BadRequest("id cannot be empty");
-            if (!ModelState.IsValid)
-                return BadRequest("Some properties are missing");
-                var response = _roleService.UpdateRole(roleToUpdate,roleId);
-                if (response.HasUpdated)
-                    return Ok(response.Message); 
-                return Ok(response.Message);
+            var response= await _roleService.UpdateRoleAsync(roleToUpdate, roleId);
+            return BuildHttpResponse(response);
+        }
+        /// <summary>
+        /// This endpoint is responsible for adding role to a user
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// /// <param name="userId"></param>
+        /// <returns></returns>
+        
+        [HttpPatch("add-role-to-user/{roleId}/{userId}")]
+        public async Task<IActionResult> AddRoleToUser([FromRoute]string roleId,[FromRoute] string userId)
+        {
+            var response = await _roleService.AddRoleToUserAsync(roleId, userId);
+            return BuildHttpResponse(response);
         }
     }
 }

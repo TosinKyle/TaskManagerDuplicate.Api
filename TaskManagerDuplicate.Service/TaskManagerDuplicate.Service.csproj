@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TaskManagerDuplicate.Data\TaskManagerDuplicate.Data.csproj" />
     <ProjectReference Include="..\TaskManagerDuplicate.Domain\TaskManagerDuplicate.Domain.csproj" />
     <ProjectReference Include="..\TaskManagerDuplicate.Helper\TaskManagerDuplicate.Helper.csproj" />

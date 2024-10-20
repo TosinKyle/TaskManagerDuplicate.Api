@@ -1,30 +1,78 @@
-﻿using TaskManagerDuplicate.Data.Repositories.Interface;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.Web;
+using TaskManagerDuplicate.Data.Enums;
+using TaskManagerDuplicate.Data.Repositories.Interface;
 using TaskManagerDuplicate.Domain.DataTransferObjects;
 using TaskManagerDuplicate.Domain.DbModels;
+using TaskManagerDuplicate.Domain.SharedModels;
+using TaskManagerDuplicate.Helper;
 using TaskManagerDuplicate.Service.Interface;
+using TaskStatus = TaskManagerDuplicate.Data.Enums.TaskStatus;
 
 namespace TaskManagerDuplicate.Service.Implementation
 {
     public class ToDoTaskService : IToDoTaskService
     {
         private readonly IToDoTaskRepository _toDoTaskRepository;
-        public ToDoTaskService(IToDoTaskRepository taskRepository) 
+        private readonly IMapper _mapper;
+        private readonly IUserService _userService;
+        public ToDoTaskService(IToDoTaskRepository taskRepository, IMapper mapper, IUserService userService) 
         {
          _toDoTaskRepository = taskRepository;
+         _mapper = mapper;
+            _userService = userService;
         }
-        public string AddTask(CreateTaskDto taskToAdd)
+        public async Task<BaseApiResponse<TaskCreationResponseDto>> AddTaskAsync(CreateTaskDto taskToAdd)
         {
-            ToDoTask task = new ToDoTask();
-            task.Name = taskToAdd.TaskName;
-            task.Description = taskToAdd.Description;
-            task.DueDate = taskToAdd.DueDate;
-            bool response =_toDoTaskRepository.AddTask(task);
-            if (response)
-                return task.Id;
-            else
-                return null;
+            ToDoTask task = _mapper.Map<ToDoTask>(taskToAdd);
+            task.Name = taskToAdd.TaskName; //manual mapping as they do not carry same name.
+            task.DueDate=task.StartDate.AddDays(2);
+            task.DateOfCompletion = task.DueDate;
+            task.Status = TaskStatus.status.WAITINGFORSUPPORT.ToString();
+            bool response = _toDoTaskRepository.AddTask(task);
+            if(response)
+            {
+                var taskToReturn = new TaskCreationResponseDto();
+                taskToReturn.TaskId = task.Id;
+                return ApiResponseHelper.BuildResponse<TaskCreationResponseDto>("Task was successfully added", true,taskToReturn,StatusCodes.Status200OK);
+            }
+            return ApiResponseHelper.BuildResponse<TaskCreationResponseDto>("Something went wrong while adding the task", false, null, StatusCodes.Status400BadRequest);
         }
-        public DeleteResponseDto DeleteTask(string id)
+
+        public async Task<BaseApiResponse<UpdateResponseDto>> UpdateToDoTaskStatusAsync(TaskStatusUpdateDto toUpdateTaskStatus, string taskId,string userId)
+        {
+            var task = _toDoTaskRepository.GetTask(taskId);//only repo can access the db, can service call service method
+            if (task == null) 
+            {
+                return ApiResponseHelper.BuildResponse<UpdateResponseDto>("The task could not be found", false, null, StatusCodes.Status404NotFound);
+            }
+            var response1 = _userService.GetSingleUserByIdAsync(userId);
+            if (response1 == null)
+            {
+                return ApiResponseHelper.BuildResponse<UpdateResponseDto>("The user that wants to update could not be found", false, null, StatusCodes.Status404NotFound);
+            }
+            else 
+            { 
+                task.Status = toUpdateTaskStatus.NewStatus;
+                if (task.Status == "RESOLVED")
+                {
+                    task.IsCompleted = true;
+                    task.DateOfCompletion = DateTime.Now;
+                }
+                bool response2 = _toDoTaskRepository.UpdateTask(task);
+                if (!response2)
+                {
+                    return ApiResponseHelper.BuildResponse<UpdateResponseDto>("Something went wrong while updating the task status", false, null, StatusCodes.Status400BadRequest);
+                }
+                else
+                {
+                    return ApiResponseHelper.BuildResponse<UpdateResponseDto>("The status was successfully updated", true, null, StatusCodes.Status200OK);
+                }
+            }
+        }
+        public async Task<BaseApiResponse<DeleteResponseDto>> DeleteTaskAsync(string id)
         {
             ToDoTask task = _toDoTaskRepository.GetTask(id);
             if (task != null)
@@ -32,40 +80,40 @@ namespace TaskManagerDuplicate.Service.Implementation
                 bool response =_toDoTaskRepository.DeleteTask(task);
                 if (response)
                 {
-                    return new DeleteResponseDto
-                    {
-                        HasDeleted = true,
-                        Message = "The task was successfully deleted"
-                    };
+                    return ApiResponseHelper.BuildResponse<DeleteResponseDto>("The task has been deleted successfully",true,null,StatusCodes.Status200OK);
                 }
-                return new DeleteResponseDto
-                {
-                    HasDeleted = false,
-                    Message = "Something went wrong while deleting the user"
-                };       
+                return ApiResponseHelper.BuildResponse<DeleteResponseDto>("Something went wrong while deleting the user", false, null, StatusCodes.Status400BadRequest);
+
             }
-            return new DeleteResponseDto { HasDeleted = false, Message = "User not found" };
+            return ApiResponseHelper.BuildResponse<DeleteResponseDto>("Task was not found", false, null, StatusCodes.Status404NotFound);
         }
-        public List<TaskListDto> GetAllTasks()
+        public async Task<BaseApiResponse<PaginatedList<TaskListDto>>> GetAllTasksAsync(int page, int perPage)
         {
-            var taskList = _toDoTaskRepository.GetAllTasks();
-            List<TaskListDto> listToDisplay = new List<TaskListDto>();
-            foreach (ToDoTask task in taskList)
-            {
-                listToDisplay.Add(new TaskListDto
+            var taskList = _toDoTaskRepository.GetAllTasks().ToList();
+            if (taskList.Count < 1)
+                return ApiResponseHelper
+                     .BuildResponse<PaginatedList<TaskListDto>>("No task was found", false, null, StatusCodes.Status404NotFound);
+                List<TaskListDto> listToDisplay = new List<TaskListDto>();
+                foreach (ToDoTask task in taskList)
                 {
-                    TaskId = task.Id,
-                    TaskName = task.Name,
-                    DueDate = task.DueDate,
-                    TaskDescription = task.Description,
-                    CreatedDate = task.CreatedOn,
-                    CompletionDate = task.DateOfCompletion,
-                    IsCompleted = task.IsCompleted,
-                }); 
-            }
-            return listToDisplay;
+                    listToDisplay.Add(new TaskListDto
+                    {
+                        TaskId = task.Id,
+                        TaskName = task.Name,
+                        DueDate = task.DueDate,
+                        TaskDescription = task.Description,
+                        CreatedDate = task.CreatedOn,
+                        CompletionDate = task.DateOfCompletion,
+                        IsCompleted = task.IsCompleted,
+                    });
+                }
+                var paginatedData = PaginationHelper<TaskListDto>.Paginate(listToDisplay, perPage, page);
+                return ApiResponseHelper.BuildResponse<PaginatedList<TaskListDto>>("Kindly find the below task list", true, paginatedData, StatusCodes.Status200OK);
+            
+            //return ApiResponseHelper.BuildResponse<PaginatedList<TaskListDto>>("Something went wrong while trying to get report", false, null, StatusCodes.Status400BadRequest);
+
         }
-        public DisplaySingleTaskDto GetSingleTask(string id)
+        public async Task<BaseApiResponse<DisplaySingleTaskDto>> GetSingleTaskAsync(string id)
         {
             ToDoTask task = _toDoTaskRepository.GetTask(id);
             if (task != null)
@@ -80,43 +128,32 @@ namespace TaskManagerDuplicate.Service.Implementation
                     DueDate = task.DueDate,
                     IsCompleted = task.IsCompleted,
                 };
-                    return taskToDisplay;
+                return ApiResponseHelper.BuildResponse<DisplaySingleTaskDto>("The request was successful", true, taskToDisplay, StatusCodes.Status200OK);
             }
-            return null;
+            return ApiResponseHelper.BuildResponse<DisplaySingleTaskDto>("Task could not be found", false, null, StatusCodes.Status400BadRequest);
         }
-        public UpdateResponseDto UpdateTask(string id, UpdateTaskDto taskToUpdate)
+        public async Task<BaseApiResponse<UpdateResponseDto>> UpdateTaskAsync(string id, UpdateTaskDto taskToUpdate)
         {
-            var response = _toDoTaskRepository.GetTask(id);
-            if (response != null)
+            var task= _toDoTaskRepository.GetTask(id);
+            if (task!= null)
             {
-               ToDoTask task = new ToDoTask();
-               task.Name = taskToUpdate.Name;
-               task.Description = taskToUpdate.TaskDescription;
-               task.DueDate = taskToUpdate.DueDate;
-               bool response1 = _toDoTaskRepository.UpdateTask(task);
+                task.Name = taskToUpdate.Name;
+                task.Description = taskToUpdate.TaskDescription;
+                task.DueDate = taskToUpdate.DueDate;
+                bool response1 = _toDoTaskRepository.UpdateTask(task);
                 if (response1)
                 {
-                    return new UpdateResponseDto
-                    {
-                        HasUpdated = true,
-                        Message = "Task was successfully updated"
-                    };
+                    return ApiResponseHelper.BuildResponse<UpdateResponseDto>("Task was successfully updated", true, null, StatusCodes.Status200OK);
                 }
-                else
-                return new UpdateResponseDto
-                {
-                    HasUpdated = false,
-                    Message = "Something went wrong while updating the task"
-                };
+                return ApiResponseHelper.BuildResponse<UpdateResponseDto>("Something went wrong while updating the task", false, null, StatusCodes.Status400BadRequest);
             }
-            else 
+            else
             {
-                return new UpdateResponseDto
-                {
-                    HasUpdated = false,
-                    Message = "Task was not found"
-                };
+                return ApiResponseHelper.BuildResponse<UpdateResponseDto> ("Task was not found", false, null, StatusCodes.Status404NotFound);
             }
         }
     }
 }
+
+    
+        

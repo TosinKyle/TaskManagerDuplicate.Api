@@ -27,7 +27,7 @@ namespace TaskManagerDuplicate.Data.Repositories.Implementation
         public ToDoTask GetTask(string taskId) => _entityFrameworkContext.ToDoTask.FirstOrDefault(task=>task.Id == taskId);
         public bool UpdateTask(ToDoTask taskToUpdate)
         {
-            _entityFrameworkContext.Update(taskToUpdate);
+            _entityFrameworkContext.ToDoTask.Update(taskToUpdate);
             return _entityFrameworkContext.SaveChanges() > 0;
         }
     }

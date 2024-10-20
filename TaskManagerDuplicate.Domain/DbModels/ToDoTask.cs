@@ -12,6 +12,9 @@ namespace TaskManagerDuplicate.Domain.DbModels
         [DataType(DataType.Text)]
         public string Description { get; set; }
         [Required]
+        [DataType(DataType.Text)]
+        public string Status { get; set; }
+        [Required]
         [DataType(DataType.DateTime)]
         public DateTime StartDate { get; set; }
         [Required]
@@ -21,6 +24,6 @@ namespace TaskManagerDuplicate.Domain.DbModels
         public bool IsCompleted { get; set; }
         public bool IsRecurring { get; set; }
         public string  UserId{get;set;}
-        public User User { get;set;}
+        public User? User { get;set;}
     }
 }

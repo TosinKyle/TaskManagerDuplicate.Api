@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Optivem.Framework.Core.Domain;
 using System.Reflection;
 using TaskManagerDuplicate.Helper;
+using TaskManagerDuplicate.Service.MappingProfiles;
 
 namespace TaskManagerDuplicate.API
 {
@@ -18,8 +19,9 @@ namespace TaskManagerDuplicate.API
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-            JWTTokenHelper.InstantiateConfiguration(builder.Configuration);  //TODO: STUDY
+            var builder = WebApplication.CreateBuilder(args);  //TODO: STUDY
+            ConfigurationHelper.InstantiateConfiguration(builder.Configuration);//why not get config why instantiate
+
 
 
             // Add services to the container.
@@ -68,13 +70,16 @@ namespace TaskManagerDuplicate.API
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFile));
             });
-                builder.Services.AddDbContext<EntityFrameworkContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
+            builder.Services.AddDbContext<EntityFrameworkContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddScoped<IUserRepository,UserRepository>();
             builder.Services.AddScoped<IToDoTaskRepository,ToDoTaskRepository>();
             builder.Services.AddScoped<IToDoTaskService,ToDoTaskService>();
             builder.Services.AddScoped<IUserService,UserService>();
             builder.Services.AddScoped<IRoleRepository,RoleRepository>();
             builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<IFileService, FileService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>    {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -90,13 +95,14 @@ namespace TaskManagerDuplicate.API
                 }
                );
             var app = builder.Build();
-
+          // var userService =  app.Services.GetService<IUserService>();//TODO: STUDY2
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment() 
                 || app.Environment.IsProduction())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwagger(); app.UseSwaggerUI(c => {
+                    c.SwaggerEndpoint("v1/swagger.json", "MyAPI V1");
+                });
             }
             app.UseAuthentication();
 

@@ -28,10 +28,11 @@ namespace TaskManagerDuplicate.Domain.DbModels
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
         [DataType(DataType.ImageUrl)]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         List<ToDoTask> Tasks { get; set; }
         [ForeignKey("RoleId")]
         public string? RoleId { get; set; }
-        public Role? Role { get; set; } 
+        public Role? Role { get; set; }
+        public string? FileName { get; set; }
     }
 }
