@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TaskManagerDuplicate.API</name>
+    </assembly>
+    <members>
+        <member name="M:TaskManagerDuplicate.API.Controller.RoleController.AddRoleAsync(TaskManagerDuplicate.Domain.DataTransferObjects.RoleCreationDto)">
+            <summary>
+            This endpoint is responsible for adding a new role to the database
+            </summary>
+            <param name="roleToBeAdded"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.RoleController.DeleteRoleAsync(System.String)">
+            <summary>
+            This endpoint is responsible for deleting a role in the database
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.RoleController.GetRoleById(System.String)">
+            <summary>
+            This endpoint is responsible for getting a role by inputting the role id
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.RoleController.GetAllRoles(System.Int32,System.Int32)">
+            <summary>
+            This endpoint is responsible for getting all roles from the database
+            </summary>
+            <param name="page"></param>
+            /// <param name="perPage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.RoleController.UpdateRole(TaskManagerDuplicate.Domain.DataTransferObjects.UpdateRoleDto,System.String)">
+            <summary>
+            This endpoint is responsible for updating a role
+            </summary>
+            <param name="roleToUpdate"></param>
+            /// <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.RoleController.AddRoleToUser(System.String,System.String)">
+            <summary>
+            This endpoint is responsible for adding role to a user
+            </summary>
+            <param name="roleId"></param>
+            /// <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.ToDoTaskController.AddTaskAsync(TaskManagerDuplicate.Domain.DataTransferObjects.CreateTaskDto)">
+            <summary>
+            This endpoint is responsible for creating a ToDoTask object
+            </summary>
+            <param name="taskToAdd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.ToDoTaskController.UpdateToDoTaskStatusAsync(TaskManagerDuplicate.Domain.DataTransferObjects.TaskStatusUpdateDto,System.String,System.String)">
+            <summary>
+            This endpoint is responsible for updating the status of a task
+            </summary>
+            <param name="taskId"></param>
+            <param name="userId"></param>
+            <param name="toUpdateTaskStatus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.ToDoTaskController.UpdateTaskAsync(System.String,TaskManagerDuplicate.Domain.DataTransferObjects.UpdateTaskDto)">
+            <summary>
+            This endpoint is responsible for updating a task
+            </summary>
+            <param name="taskId"></param>
+            <param name="taskToUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.ToDoTaskController.DeleteTaskAsync(System.String)">
+            <summary>
+            This endpoint is responsible for deleting a task
+            </summary>
+            <param name="taskId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.ToDoTaskController.GetSingleTaskAsync(System.String)">
+            <summary>
+            This endpoint is responsible for getting a single task
+            </summary>
+            <param name="taskId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.ToDoTaskController.GetAllTasksAsync(System.Int32,System.Int32)">
+            <summary>
+            This endpoint is responsible for getting all tasks
+            </summary>
+            <param name="page"></param>
+            <param name="perPage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.GetAllUsersAsync(System.Int32,System.Int32)">
+            <summary>
+            This endpoint is responsible for getting all users from the database
+            </summary>
+            <param name="page"></param>
+            <param name="perPage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.ActivateUser(System.String)">
+            <summary>
+            This endpoint is responsible for activating a user
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.DeactivateUser(System.String)">
+            <summary>
+            This endpoint is responsible for de-activating a user
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.GetUserById(System.String)">
+            <summary>
+            This endpoint is responsible for getting a user
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.AddUserAsync(TaskManagerDuplicate.Domain.DataTransferObjects.UserCreationDto)">
+            <summary>
+            This endpoint is responsible for adding a user
+            </summary>
+            <param name="userToAdd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.UpdateUserAsync(System.String,TaskManagerDuplicate.Domain.DataTransferObjects.UpdateUserDto)">
+            <summary>
+            This endpoint is responsible for updating a user
+            </summary>
+            <param name="userId"></param>
+            /// <param name="userToUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.DeleteUserAsync(System.String)">
+            <summary>
+            This endpoint is responsible for deleting a user
+            </summary>
+             <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.UpdateUserPartiallyAsync(System.String,TaskManagerDuplicate.Domain.DataTransferObjects.PartialUserUpdateDto)">
+            <summary>
+            This endpoint is responsible for partially updating a user
+            </summary>
+            <param name="userId"></param>
+            <param name="userToUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.RemoveRoleFromUserAsync(System.String,System.String)">
+            <summary>
+            This endpoint is responsible for removing role from a user
+            </summary>
+            <param name="roleId"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.ChangeUserRoleAsync(System.String,System.String)">
+            <summary>
+            This endpoint is responsible for  changing the user role
+            </summary>
+            <param name="userId"></param>
+            <param name="roleToAddId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.GetUserFirstAndLastNameAsync(System.String)">
+            <summary>
+            This endpoint is responsible for getting user's first and last name
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.UserController.SendBulkEmailToUsersAsync(System.Collections.Generic.List{System.String})">
+            <summary>
+            This endpoint is responsible for sending out bulk email to users
+            </summary>
+            <param name="userEmails"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

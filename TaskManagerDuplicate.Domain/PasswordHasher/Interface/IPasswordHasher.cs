@@ -8,7 +8,10 @@ namespace TaskManagerDuplicate.Domain.PasswordHasher.Interface
 {
     public interface IPasswordHasher
     {
-        public string Encrypt(string password);
-        public string Decrypt(string passwordHash);
+        public interface IPasswordHasher
+        {
+            public string Encrypt(string password);
+            public string Decrypt(string passwordHash);
+        }
     }
 }

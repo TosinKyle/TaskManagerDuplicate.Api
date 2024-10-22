@@ -11,10 +11,11 @@ namespace TaskManagerDuplicate.Data.Context
         }
         public DbSet<User> User { get; set; }
         public DbSet<ToDoTask> ToDoTask { get; set; }
+        public DbSet<Role> Role { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder contextBuilder)
-        {
+         protected override void OnConfiguring(DbContextOptionsBuilder contextBuilder)
+         {
             contextBuilder.UseSqlServer("Server=CSCS-HQ-PS-L025\\SQLEXPRESS;Database=TaskManagerDuplicate;TrustServerCertificate=true;Trusted_Connection=true;");
-        }
+         }
     }
 }
