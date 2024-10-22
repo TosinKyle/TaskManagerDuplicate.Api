@@ -215,3 +215,4 @@ C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManage
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.API\obj\Debug\net6.0\TaskManagerDuplicate.API.pdb
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.API\obj\Debug\net6.0\TaskManagerDuplicate.API.genruntimeconfig.cache
 C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.API\obj\Debug\net6.0\ref\TaskManagerDuplicate.API.dll
+C:\Users\oogunjemilua\Documents\ProjectRepos\TaskManagerDuplicate.Api\TaskManagerDuplicate.API\obj\Debug\net6.0\TaskManagerDuplicate.API.MvcApplicationPartsAssemblyInfo.cs
