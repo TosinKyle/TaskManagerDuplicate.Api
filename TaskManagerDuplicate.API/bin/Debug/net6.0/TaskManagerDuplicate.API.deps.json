@@ -873,6 +873,14 @@
           }
         }
       },
+      "Otp.NET/1.4.0": {
+        "runtime": {
+          "lib/net6.0/Otp.NET.dll": {
+            "assemblyVersion": "1.4.0.0",
+            "fileVersion": "1.4.0.0"
+          }
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
@@ -1741,6 +1749,14 @@
           }
         }
       },
+      "TwoStepsAuthenticator/1.4.1": {
+        "runtime": {
+          "lib/netstandard2.0/TwoStepsAuthenticator.dll": {
+            "assemblyVersion": "1.4.1.0",
+            "fileVersion": "1.4.1.0"
+          }
+        }
+      },
       "TaskManagerDuplicate.Data/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity": "2.2.0",
@@ -1766,8 +1782,10 @@
           "Microsoft.AspNet.Mvc": "5.3.0",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "Microsoft.IdentityModel.JsonWebTokens": "7.4.1",
+          "Otp.NET": "1.4.0",
           "System.IdentityModel.Tokens.Jwt": "7.4.1",
-          "TaskManagerDuplicate.Domain": "1.0.0"
+          "TaskManagerDuplicate.Domain": "1.0.0",
+          "TwoStepsAuthenticator": "1.4.1"
         },
         "runtime": {
           "TaskManagerDuplicate.Helper.dll": {}
@@ -1778,9 +1796,11 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "CloudinaryDotNet": "1.26.2",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
+          "Otp.NET": "1.4.0",
           "TaskManagerDuplicate.Data": "1.0.0",
           "TaskManagerDuplicate.Domain": "1.0.0",
-          "TaskManagerDuplicate.Helper": "1.0.0"
+          "TaskManagerDuplicate.Helper": "1.0.0",
+          "TwoStepsAuthenticator": "1.4.1"
         },
         "runtime": {
           "TaskManagerDuplicate.Service.dll": {}
@@ -2388,6 +2408,13 @@
       "sha512": "sha512-kaKk6tPpNIVxPoPG4r58rSp/bs9JYa2pi/YRfKqTe3JQge9OBXDeJ1fZiLdqMpQJHg1Si6r/Kk5VKwVNfWwmCw==",
       "path": "optivem.framework.infrastructure.fluentvalidation/1.0.23",
       "hashPath": "optivem.framework.infrastructure.fluentvalidation.1.0.23.nupkg.sha512"
+    },
+    "Otp.NET/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Fk1NKc0lWmlo6LAFYpFJInRgFKt72knRNEvxndDYoQHFwYOPXav+WEUBvQA0k4lxq5xt0SymrZ+oi0F/G40bPQ==",
+      "path": "otp.net/1.4.0",
+      "hashPath": "otp.net.1.4.0.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
       "type": "package",
@@ -3088,6 +3115,13 @@
       "sha512": "sha512-WV2a20W80naz0DZzs0e9pkJ7a/RqtiMORz5GzGLnkiP8/7m4VqnYG3wdPIYfJIH8BUjf+1jf56xeNeMUNwsRyQ==",
       "path": "turner.infrastructure.mediator/1.0.19",
       "hashPath": "turner.infrastructure.mediator.1.0.19.nupkg.sha512"
+    },
+    "TwoStepsAuthenticator/1.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bkDEFWLibbJ5b0b7zgr3Uc1brYa5hFunZ36WmG+yvfwMCgu978NqEPVu1P120Qbrt65TYEcimsxTzICe6XfAig==",
+      "path": "twostepsauthenticator/1.4.1",
+      "hashPath": "twostepsauthenticator.1.4.1.nupkg.sha512"
     },
     "TaskManagerDuplicate.Data/1.0.0": {
       "type": "project",

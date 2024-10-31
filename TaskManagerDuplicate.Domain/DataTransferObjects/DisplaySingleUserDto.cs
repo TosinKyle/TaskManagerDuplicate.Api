@@ -14,5 +14,6 @@ namespace TaskManagerDuplicate.Domain.DataTransferObjects
         public string ImageUrl { get; set; }
         public bool IsActive { get; set; }
         public List<TaskListDto> UserTasks = new List<TaskListDto>(); 
+        public bool IsTwoFactorEnabled { get; set; }
     }
 }

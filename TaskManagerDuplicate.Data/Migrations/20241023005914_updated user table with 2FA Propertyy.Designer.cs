@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskManagerDuplicate.Data.Context;
 
@@ -11,9 +12,11 @@ using TaskManagerDuplicate.Data.Context;
 namespace TaskManagerDuplicate.Data.Migrations
 {
     [DbContext(typeof(EntityFrameworkContext))]
-    partial class EntityFrameworkContextModelSnapshot : ModelSnapshot
+    [Migration("20241023005914_updated user table with 2FA Propertyy")]
+    partial class updatedusertablewith2FAPropertyy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,10 +156,6 @@ namespace TaskManagerDuplicate.Data.Migrations
 
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SharedSecret")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");

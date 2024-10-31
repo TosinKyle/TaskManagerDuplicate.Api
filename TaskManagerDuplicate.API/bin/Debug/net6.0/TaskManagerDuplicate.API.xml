@@ -4,6 +4,26 @@
         <name>TaskManagerDuplicate.API</name>
     </assembly>
     <members>
+        <member name="M:TaskManagerDuplicate.API.Controller.AuthenticationController.Login(TaskManagerDuplicate.Domain.DataTransferObjects.UserLoginDto)">
+            <summary>
+            This is the endpoint that is responsible for logging in the user.
+            </summary>
+            <param name="userLoginDetails"></param>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Server Error</response>
+            <returns></returns>
+        </member>
+        <member name="M:TaskManagerDuplicate.API.Controller.AuthenticationController.LoginWith2FA(System.String,System.String,System.Int64)">
+            <summary>
+            This is the endpoint that logs the user in to the application and generates the JWT token.
+            </summary>
+            <param name="userLoginDetails"></param>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Server Error</response>
+            <returns></returns>
+        </member>
         <member name="M:TaskManagerDuplicate.API.Controller.RoleController.AddRoleAsync(TaskManagerDuplicate.Domain.DataTransferObjects.RoleCreationDto)">
             <summary>
             This endpoint is responsible for adding a new role to the database

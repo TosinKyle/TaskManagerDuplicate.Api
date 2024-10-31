@@ -34,5 +34,7 @@ namespace TaskManagerDuplicate.Domain.DbModels
         public string? RoleId { get; set; }
         public Role? Role { get; set; }
         public string? FileName { get; set; }
+        public bool IsTwoFactorEnabled { get; set; }
+        public string SharedSecret { get; set; }
     }
 }

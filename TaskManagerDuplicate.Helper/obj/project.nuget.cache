@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hPlzLzEbxGWQGdyoS/TB/hw4ssmfaBjjK2I/yppIKxcMxmTVNStXzG7Z6YOeTan7vPZvLzvcDxrDYc1FS2WzCQ==",
+  "dgSpecHash": "1drUwqGx00u5hhVXW6LpRac/WxohFgZgWzmsufqBmLKuFQBSmCJQ6+r1+7J9pQ1QODjnIlrf1Tvou00RrX/dcA==",
   "success": true,
   "projectFilePath": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.Helper\\TaskManagerDuplicate.Helper.csproj",
   "expectedPackageFiles": [
@@ -15,8 +15,10 @@
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.identitymodel.logging\\7.4.1\\microsoft.identitymodel.logging.7.4.1.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.4.1\\microsoft.identitymodel.tokens.7.4.1.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\microsoft.web.infrastructure\\1.0.0\\microsoft.web.infrastructure.1.0.0.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\otp.net\\1.4.0\\otp.net.1.4.0.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.4.1\\system.identitymodel.tokens.jwt.7.4.1.nupkg.sha512",
-    "C:\\Users\\oogunjemilua\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\twostepsauthenticator\\1.4.1\\twostepsauthenticator.1.4.1.nupkg.sha512"
   ],
   "logs": [
     {
