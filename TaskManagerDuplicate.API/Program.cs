@@ -12,6 +12,7 @@ using Optivem.Framework.Core.Domain;
 using System.Reflection;
 using TaskManagerDuplicate.Helper;
 using TaskManagerDuplicate.Service.MappingProfiles;
+using IUserService = TaskManagerDuplicate.Service.Interface.IUserService;
 
 namespace TaskManagerDuplicate.API
 {
@@ -75,11 +76,12 @@ namespace TaskManagerDuplicate.API
             builder.Services.AddScoped<IUserRepository,UserRepository>();
             builder.Services.AddScoped<IToDoTaskRepository,ToDoTaskRepository>();
             builder.Services.AddScoped<IToDoTaskService,ToDoTaskService>();
-            builder.Services.AddScoped<IUserService,UserService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IRoleRepository,RoleRepository>();
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<IFileService, FileService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<ITwoFactorAuthentication, TwoFactorAuthentication>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>    {
                     options.TokenValidationParameters = new TokenValidationParameters

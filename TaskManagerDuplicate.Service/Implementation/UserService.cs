@@ -7,11 +7,11 @@ using TaskManagerDuplicate.Domain.DbModels;
 using TaskManagerDuplicate.Domain.SharedModels;
 using TaskManagerDuplicate.Helper;
 using TaskManagerDuplicate.Service.Interface;
-
+using IUserService = TaskManagerDuplicate.Service.Interface.IUserService;//to fix amb ref.
 
 namespace TaskManagerDuplicate.Service.Implementation
 {
-    public  class UserService : IUserService   
+    public  class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
@@ -34,6 +34,7 @@ namespace TaskManagerDuplicate.Service.Implementation
                 {
                     return ApiResponseHelper.BuildResponse<UserCreationResponseDto>("User already exists", true, null, StatusCodes.Status200OK);
                 }
+               //var sharedSecret = TwoFactorAuthentication.GenerateOTP();
                 var passwordHash = SecurityHelper.Encrypt(userToAdd.Password);
                 var response = await _fileService.UploadFileToLocalServer(userToAdd.ProfilePicture);
                 if (response != null)
@@ -43,6 +44,8 @@ namespace TaskManagerDuplicate.Service.Implementation
                     user.PasswordHash = passwordHash;  //manual mapping for prop dt dont exist in both model.
                     user.PasswordSalt = passwordHash;
                     user.FileName = response.FileName;
+                    user.IsTwoFactorEnabled = true;
+                   // user.SharedSecret = sharedSecret;
                     var response1 = _userRepository.AddUser(user);
                     if (response1)
                     {
@@ -191,7 +194,8 @@ namespace TaskManagerDuplicate.Service.Implementation
                         EmailAddress = response.EmailAddress,
                         ImageUrl = response.ImageUrl,
                         CreatedOn = response.CreatedOn,
-                        IsActive = response.IsActive
+                        IsActive = response.IsActive,
+                        IsTwoFactorEnabled = response.IsTwoFactorEnabled,
                     };
                     return ApiResponseHelper.BuildResponse<DisplaySingleUserDto>("User with email address was not found", true, userToReturn, StatusCodes.Status200OK);
                 }

@@ -117,9 +117,17 @@
               "target": "Package",
               "version": "[7.4.1, )"
             },
+            "Otp.NET": {
+              "target": "Package",
+              "version": "[1.4.0, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[7.4.1, )"
+            },
+            "TwoStepsAuthenticator": {
+              "target": "Package",
+              "version": "[1.4.1, )"
             }
           },
           "imports": [

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4YiEItGF0wKFe8fI/vqOkRnj+kNiJpWrI5ZuaWGByxtbUQ845XU2+tRP1whvWji0oLh2AMYGOEIahkYwvfPpNg==",
+  "dgSpecHash": "Gs5xn+KaANwQIHNk+UAregVxfIBOdBPLn6hbSqnsubxTsxaSp2tLiJDQsBCiJ8t0BhSEzNSuMHa/T4JaLFQ1mg==",
   "success": true,
   "projectFilePath": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.API\\TaskManagerDuplicate.API.csproj",
   "expectedPackageFiles": [
@@ -89,6 +89,7 @@
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\optivem.framework.core.common\\1.0.23\\optivem.framework.core.common.1.0.23.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\optivem.framework.core.domain\\1.0.23\\optivem.framework.core.domain.1.0.23.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\optivem.framework.infrastructure.fluentvalidation\\1.0.23\\optivem.framework.infrastructure.fluentvalidation.1.0.23.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\otp.net\\1.4.0\\otp.net.1.4.0.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
@@ -188,7 +189,8 @@
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\system.xml.xdocument\\4.0.11\\system.xml.xdocument.4.0.11.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\turner.infrastructure.crud\\2.1.2\\turner.infrastructure.crud.2.1.2.nupkg.sha512",
     "C:\\Users\\oogunjemilua\\.nuget\\packages\\turner.infrastructure.crud.fluentvalidation\\2.1.2\\turner.infrastructure.crud.fluentvalidation.2.1.2.nupkg.sha512",
-    "C:\\Users\\oogunjemilua\\.nuget\\packages\\turner.infrastructure.mediator\\1.0.19\\turner.infrastructure.mediator.1.0.19.nupkg.sha512"
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\turner.infrastructure.mediator\\1.0.19\\turner.infrastructure.mediator.1.0.19.nupkg.sha512",
+    "C:\\Users\\oogunjemilua\\.nuget\\packages\\twostepsauthenticator\\1.4.1\\twostepsauthenticator.1.4.1.nupkg.sha512"
   ],
   "logs": [
     {

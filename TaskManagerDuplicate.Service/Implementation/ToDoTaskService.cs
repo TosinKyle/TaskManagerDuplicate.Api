@@ -9,6 +9,7 @@ using TaskManagerDuplicate.Domain.DbModels;
 using TaskManagerDuplicate.Domain.SharedModels;
 using TaskManagerDuplicate.Helper;
 using TaskManagerDuplicate.Service.Interface;
+using IUserService = TaskManagerDuplicate.Service.Interface.IUserService;
 using TaskStatus = TaskManagerDuplicate.Data.Enums.TaskStatus;
 
 namespace TaskManagerDuplicate.Service.Implementation

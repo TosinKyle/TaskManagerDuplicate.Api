@@ -11,8 +11,10 @@
           "Microsoft.AspNet.Mvc": "5.3.0",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "Microsoft.IdentityModel.JsonWebTokens": "7.4.1",
+          "Otp.NET": "1.4.0",
           "System.IdentityModel.Tokens.Jwt": "7.4.1",
-          "TaskManagerDuplicate.Domain": "1.0.0"
+          "TaskManagerDuplicate.Domain": "1.0.0",
+          "TwoStepsAuthenticator": "1.4.1"
         },
         "runtime": {
           "TaskManagerDuplicate.Helper.dll": {}
@@ -144,6 +146,14 @@
           }
         }
       },
+      "Otp.NET/1.4.0": {
+        "runtime": {
+          "lib/net6.0/Otp.NET.dll": {
+            "assemblyVersion": "1.4.0.0",
+            "fileVersion": "1.4.0.0"
+          }
+        }
+      },
       "System.IdentityModel.Tokens.Jwt/7.4.1": {
         "dependencies": {
           "Microsoft.IdentityModel.JsonWebTokens": "7.4.1",
@@ -157,6 +167,14 @@
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
+      "TwoStepsAuthenticator/1.4.1": {
+        "runtime": {
+          "lib/netstandard2.0/TwoStepsAuthenticator.dll": {
+            "assemblyVersion": "1.4.1.0",
+            "fileVersion": "1.4.1.0"
+          }
+        }
+      },
       "TaskManagerDuplicate.Domain/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "2.2.0"
@@ -250,6 +268,13 @@
       "path": "microsoft.web.infrastructure/1.0.0",
       "hashPath": "microsoft.web.infrastructure.1.0.0.nupkg.sha512"
     },
+    "Otp.NET/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Fk1NKc0lWmlo6LAFYpFJInRgFKt72knRNEvxndDYoQHFwYOPXav+WEUBvQA0k4lxq5xt0SymrZ+oi0F/G40bPQ==",
+      "path": "otp.net/1.4.0",
+      "hashPath": "otp.net.1.4.0.nupkg.sha512"
+    },
     "System.IdentityModel.Tokens.Jwt/7.4.1": {
       "type": "package",
       "serviceable": true,
@@ -263,6 +288,13 @@
       "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    },
+    "TwoStepsAuthenticator/1.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bkDEFWLibbJ5b0b7zgr3Uc1brYa5hFunZ36WmG+yvfwMCgu978NqEPVu1P120Qbrt65TYEcimsxTzICe6XfAig==",
+      "path": "twostepsauthenticator/1.4.1",
+      "hashPath": "twostepsauthenticator.1.4.1.nupkg.sha512"
     },
     "TaskManagerDuplicate.Domain/1.0.0": {
       "type": "project",
