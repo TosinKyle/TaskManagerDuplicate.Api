@@ -1,3 +1,9 @@
 .vs/
-TaskManagerDuplicate.Service/bin/
-TaskManagerDuplicate.Service/obj/
+**/bin/
+**/obj/
+*.exe
+*.dll
+*.log
+*.tmp
+*.cache
+
