@@ -88,16 +88,24 @@ namespace TaskManagerDuplicate.Service.Implementation
             }
             return ApiResponseHelper.BuildResponse<DeleteResponseDto>("Task was not found", false, null, StatusCodes.Status404NotFound);
         }
-        public async Task<BaseApiResponse<PaginatedList<TaskListDto>>> GetAllTasksAsync(int page, int perPage)
+        public async Task<BaseApiResponse<PaginatedList<TaskListDto>>> GetAllTasksAsync(int page, int perPage,string status)
         {
-            var taskList = _toDoTaskRepository.GetAllTasks().ToList();
-            if (taskList.Count < 1)
-                return ApiResponseHelper
-                     .BuildResponse<PaginatedList<TaskListDto>>("No task was found", false, null, StatusCodes.Status404NotFound);
-                List<TaskListDto> listToDisplay = new List<TaskListDto>();
-                foreach (ToDoTask task in taskList)
+                var taskList = _toDoTaskRepository.GetAllTasks().ToList();
+                if (taskList.Count < 1)
+                    return ApiResponseHelper
+                         .BuildResponse<PaginatedList<TaskListDto>>("No task was found", false, null, StatusCodes.Status404NotFound);
+            if (!string.IsNullOrEmpty(status))
+            {
+                var taskList1 = taskList.AsQueryable().Where(task => task.Status == status).ToList();//Where(task => task.Status == status).ToList();
+                if (taskList1.Count < 1)
                 {
-                    listToDisplay.Add(new TaskListDto
+                    return ApiResponseHelper
+                            .BuildResponse<PaginatedList<TaskListDto>>($"No {status} task was found", false, null, StatusCodes.Status404NotFound);
+                }
+                List<TaskListDto> listToReturn = new List<TaskListDto>();
+                foreach (ToDoTask task in taskList1)
+                {
+                    listToReturn.Add(new TaskListDto
                     {
                         TaskId = task.Id,
                         TaskName = task.Name,
@@ -106,12 +114,34 @@ namespace TaskManagerDuplicate.Service.Implementation
                         CreatedDate = task.CreatedOn,
                         CompletionDate = task.DateOfCompletion,
                         IsCompleted = task.IsCompleted,
+                        Status = task.Status,
                     });
                 }
-                var paginatedData = PaginationHelper<TaskListDto>.Paginate(listToDisplay, perPage, page);
-                return ApiResponseHelper.BuildResponse<PaginatedList<TaskListDto>>("Kindly find the below task list", true, paginatedData, StatusCodes.Status200OK);
-            
-            //return ApiResponseHelper.BuildResponse<PaginatedList<TaskListDto>>("Something went wrong while trying to get report", false, null, StatusCodes.Status400BadRequest);
+                var paginatedData = PaginationHelper<TaskListDto>.Paginate(listToReturn, perPage, page);
+                return ApiResponseHelper
+                         .BuildResponse<PaginatedList<TaskListDto>>("Here is the list of tasks", true, paginatedData, StatusCodes.Status200OK);
+            }
+            else 
+            {
+                List<TaskListDto> listToReturn = new List<TaskListDto>();
+                foreach (ToDoTask task in taskList)
+                {
+                    listToReturn.Add(new TaskListDto
+                    {
+                        TaskId = task.Id,
+                        TaskName = task.Name,
+                        DueDate = task.DueDate,
+                        TaskDescription = task.Description,
+                        CreatedDate = task.CreatedOn,
+                        CompletionDate = task.DateOfCompletion,
+                        IsCompleted = task.IsCompleted,
+                        Status = task.Status,
+                    });
+                }
+                var paginatedData = PaginationHelper<TaskListDto>.Paginate(listToReturn, perPage, page);
+                return ApiResponseHelper
+                         .BuildResponse<PaginatedList<TaskListDto>>("Here is the list of tasks", true, paginatedData, StatusCodes.Status200OK);
+            }
 
         }
         public async Task<BaseApiResponse<DisplaySingleTaskDto>> GetSingleTaskAsync(string id)

@@ -17,6 +17,14 @@ namespace TaskManagerDuplicate.Helper
             string htmlContent = File.ReadAllText(templatePath);
             return htmlContent;
         }
+        public static string CreateForgotPasswordTemplate(string userFirstName,string result) 
+        {
+            string templatePath = Path.Combine("wwwroot", "html", "EmailTemplate", "ForgotPassword.html");
+            string htmlContent = File.ReadAllText(templatePath);
+            htmlContent = htmlContent.Replace("[userFirstName]", userFirstName);
+            htmlContent = htmlContent.Replace("[OTP]", result);
+            return htmlContent;
+        }
 
     }
 }

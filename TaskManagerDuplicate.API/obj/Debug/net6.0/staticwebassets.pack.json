@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.API\\wwwroot\\html\\EmailTemplate\\ForgotPassword.html",
+      "PackagePath": "staticwebassets\\html\\EmailTemplate\\ForgotPassword.html"
+    },
+    {
       "Id": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.API\\wwwroot\\html\\EmailTemplate\\TaskManagerBulkMessage.html",
       "PackagePath": "staticwebassets\\html\\EmailTemplate\\TaskManagerBulkMessage.html"
     },
