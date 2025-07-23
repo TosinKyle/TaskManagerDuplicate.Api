@@ -21,7 +21,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// <param name="roleToBeAdded"></param>
         /// <returns></returns>
         
-        [HttpPost("add-new-role")]
+        [HttpPost("role-creation")]
         public async Task<IActionResult> AddRoleAsync([FromBody] RoleCreationDto roleToBeAdded) 
         {
             var response = await _roleService.AddRoleAsync(roleToBeAdded);
@@ -40,7 +40,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// <param name="roleId"></param>
         /// <returns></returns>
         
-        [HttpDelete("delete-role/{roleId}")]
+        [HttpDelete("{roleId}")]
         public async Task<IActionResult> DeleteRoleAsync([FromRoute] string roleId) => BuildHttpResponse(await _roleService.DeleteRoleAsync(roleId));
         /// <summary>
         /// This endpoint is responsible for getting a role by inputting the role id
@@ -61,7 +61,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// /// <param name="perPage"></param>
         /// <returns></returns>
         
-        [HttpGet("get-all-roles")]
+        [HttpGet("role-list")]
         public async Task<IActionResult> GetAllRoles([FromQuery]int page,[FromQuery] int perPage) 
         {
            var roleList = await _roleService.GetAllRolesAsync(page, perPage);// normally can i do PaginatedList<roleList>
@@ -74,7 +74,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// /// <param name="roleId"></param>
         /// <returns></returns>
         
-        [HttpPatch("update-role/{roleId}")]
+        [HttpPatch("role-update/{roleId}")]
         public async Task<IActionResult> UpdateRole([FromBody]UpdateRoleDto roleToUpdate, [FromRoute]string roleId) 
         {
             var response= await _roleService.UpdateRoleAsync(roleToUpdate, roleId);
@@ -87,12 +87,6 @@ namespace TaskManagerDuplicate.API.Controller
         /// /// <param name="userId"></param>
         /// <returns></returns>
         
-        [HttpPatch("add-role-to-user/{roleId}/{userId}")]
-        public async Task<IActionResult> AddRoleToUser([FromRoute]string roleId,[FromRoute] string userId)
-        {
-            var response = await _roleService.AddRoleToUserAsync(roleId, userId);
-            return BuildHttpResponse(response);
-        }
     }
 }
 

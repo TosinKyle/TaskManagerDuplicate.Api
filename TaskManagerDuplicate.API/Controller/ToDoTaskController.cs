@@ -20,7 +20,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// </summary>
         /// <param name="taskToAdd"></param>
         /// <returns></returns>
-        [HttpPost("create-new-task")]
+        [HttpPost("new-task-creation")]
         public async Task<IActionResult> AddTaskAsync([FromBody] CreateTaskDto taskToAdd) => BuildHttpResponse(await _taskService.AddTaskAsync(taskToAdd));
         /// <summary>
         /// This endpoint is responsible for updating the status of a task
@@ -29,7 +29,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// <param name="userId"></param>
         /// <param name="toUpdateTaskStatus"></param>
         /// <returns></returns>
-        [HttpPost("update-task-status/{userId}/{taskId}")]
+        [HttpPost("status-update/{userId}/{taskId}")]
         public async Task<IActionResult> UpdateToDoTaskStatusAsync([FromBody] TaskStatusUpdateDto toUpdateTaskStatus, [FromRoute]string taskId, [FromRoute]string userId) 
         { 
             var response= await _taskService.UpdateToDoTaskStatusAsync(toUpdateTaskStatus, taskId, userId);
@@ -41,7 +41,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// <param name="taskId"></param>
         /// <param name="taskToUpdate"></param>
         /// <returns></returns>
-        [HttpPatch("update-task/{taskId}")]
+        [HttpPatch("task-update/{taskId}")]
         public async Task<IActionResult> UpdateTaskAsync([FromRoute] string taskId, [FromBody] UpdateTaskDto taskToUpdate)
         { 
          var response = await _taskService.UpdateTaskAsync(taskId, taskToUpdate);
@@ -52,7 +52,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// </summary>
         /// <param name="taskId"></param>
         /// <returns></returns>
-        [HttpDelete("delete-task/{taskId}")]
+        [HttpDelete("{taskId}")]
         public async Task<IActionResult> DeleteTaskAsync([FromRoute] string taskId) 
         { 
          var response=await _taskService.DeleteTaskAsync(taskId);
@@ -74,11 +74,12 @@ namespace TaskManagerDuplicate.API.Controller
         /// </summary>
         /// <param name="page"></param>
         /// <param name="perPage"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
-        [HttpGet("get-all-tasks")]
-        public async Task<IActionResult> GetAllTasksAsync([FromQuery] int page, [FromQuery] int perPage)
+        [HttpGet("task-list")]
+        public async Task<IActionResult> GetAllTasksAsync([FromQuery] int page, [FromQuery] int perPage, [FromQuery]string? status)
         {
-         var response = await _taskService.GetAllTasksAsync(page,perPage);
+         var response = await _taskService.GetAllTasksAsync(page,perPage,status);
          return BuildHttpResponse(response);
         }
 

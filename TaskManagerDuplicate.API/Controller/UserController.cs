@@ -8,7 +8,7 @@ namespace TaskManagerDuplicate.API.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
@@ -23,7 +23,8 @@ namespace TaskManagerDuplicate.API.Controller
         /// <param name="perPage"></param>
         /// <returns></returns>
         
-        [HttpGet("get-all-users")]
+        [HttpGet("user-list")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllUsersAsync([FromQuery] int page, [FromQuery] int perPage) => BuildHttpResponse(await _userService.GetAllUsersAsync(page, perPage));
         /// <summary>
         /// This endpoint is responsible for activating a user
@@ -32,7 +33,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// <returns></returns>
         
         [AllowAnonymous]
-        [HttpPost("activate-the-user/{id}")]
+        [HttpPost("user-activation/{id}")]
         public async Task<IActionResult> ActivateUser([FromRoute] string id)=>BuildHttpResponse(await _userService.ActivateUserAsync(id));
         /// <summary>
         /// This endpoint is responsible for de-activating a user
@@ -40,7 +41,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// <param name="id"></param>
         /// <returns></returns>
         
-        [HttpPost("de-activate-user/{id}")]
+        [HttpPost("user-deactivation/{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> DeactivateUser([FromRoute] string id) => BuildHttpResponse(await _userService.DeactivateUserAsync(id));
 
@@ -61,7 +62,7 @@ namespace TaskManagerDuplicate.API.Controller
         /// <param name="userToAdd"></param>
         /// <returns></returns>
         
-        [HttpPost("add-new-user")]
+        [HttpPost("user-creation")]
         [AllowAnonymous]
         public async Task<IActionResult> AddUserAsync([FromForm] UserCreationDto userToAdd) => BuildHttpResponse(await _userService.AddUserAsync(userToAdd));
 
@@ -72,7 +73,8 @@ namespace TaskManagerDuplicate.API.Controller
         /// /// <param name="userToUpdate"></param>
         /// <returns></returns>
 
-        [HttpPut("update-user/{userId}")]
+        [HttpPut("user-update/{userId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> UpdateUserAsync([FromRoute] string userId, [FromBody] UpdateUserDto userToUpdate)=>
            BuildHttpResponse(await _userService.UpdateUserAsync(userToUpdate, userId));
         /// <summary>
@@ -80,8 +82,8 @@ namespace TaskManagerDuplicate.API.Controller
         /// </summary>
         ///  <param name="userId"></param>
         /// <returns></returns>
-        
-        [HttpDelete("delete-user/{userId}")]
+        [AllowAnonymous]
+        [HttpDelete("delete/{userId}")]
         public async Task<IActionResult> DeleteUserAsync([FromRoute] string userId)=> BuildHttpResponse(await _userService.DeleteUserAsync(userId));
         /// <summary>
         /// This endpoint is responsible for partially updating a user
@@ -113,15 +115,6 @@ namespace TaskManagerDuplicate.API.Controller
         [HttpPatch("change-user-role/{userId}/{roleToAddId}")]
         public async Task<IActionResult> ChangeUserRoleAsync(string userId, string roleToAddId) => BuildHttpResponse(await _userService.ChangeUserRoleAsync(userId, roleToAddId));
         /// <summary>
-        /// This endpoint is responsible for getting user's first and last name
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        
-        [AllowAnonymous]
-        [HttpGet("get-user-first-and-last-name/{userId}")]
-        public async Task<IActionResult> GetUserFirstAndLastNameAsync([FromRoute] string userId) => BuildHttpResponse(await _userService.GetUserFirstAndLastNameAsync(userId));
-        /// <summary>
         /// This endpoint is responsible for sending out bulk email to users
         /// </summary>
         /// <param name="userEmails"></param>
@@ -130,7 +123,9 @@ namespace TaskManagerDuplicate.API.Controller
         [AllowAnonymous]
         [HttpPost("send-bulk-email-to-users")]
         public async Task<IActionResult> SendBulkEmailToUsersAsync([FromBody] List<string> userEmails) => BuildHttpResponse(await _userService.SendBulkEmailToUsersAsync(userEmails));  //from where
-
+        [AllowAnonymous]
+        [HttpPatch("add-role-to-user/{userId}/{roleId}")]
+        public async Task<IActionResult> AddRoleToUser([FromRoute] string userId, [FromRoute] string roleId) => BuildHttpResponse(await _userService.AddRoleToUserAsync(userId, roleId));
     }
  }
 

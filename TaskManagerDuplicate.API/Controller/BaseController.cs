@@ -15,6 +15,7 @@ namespace TaskManagerDuplicate.API.Controller
                 StatusCodes.Status200OK => Ok(requestResponse),
                 StatusCodes.Status201Created => Created("", requestResponse),
                 StatusCodes.Status409Conflict => BadRequest(requestResponse),
+                StatusCodes.Status403Forbidden => BadRequest(requestResponse),
                 StatusCodes.Status404NotFound => NotFound(requestResponse),
                 StatusCodes.Status401Unauthorized => Unauthorized(requestResponse),
                 StatusCodes.Status400BadRequest => BadRequest(requestResponse),

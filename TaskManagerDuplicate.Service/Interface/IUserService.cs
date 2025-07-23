@@ -11,11 +11,11 @@ namespace TaskManagerDuplicate.Service.Interface
         public Task<BaseApiResponse<DisplaySingleUserDto>> GetSingleUserByIdAsync(string userId);
         public Task<BaseApiResponse<PaginatedList<UserListDto>>> GetAllUsersAsync(int page, int perPage); 
         public Task<BaseApiResponse<UpdateResponseDto>> UpdateUserPartiallyAsync(string userId, PartialUserUpdateDto userToUpdate);
-        public Task<BaseApiResponse<DisplaySingleUserDto>> LoginAsync(UserLoginDto userLogin);
         public Task<BaseApiResponse<DisplaySingleUserDto>> GetSingleUserByEmailAsync(string userId);
         public Task<BaseApiResponse<UpdateResponseDto>> ActivateUserAsync(string userId);
         public Task<BaseApiResponse<UpdateResponseDto>> DeactivateUserAsync(string userId);
         public Task<BaseApiResponse<UpdateResponseDto>> RemoveRoleFromUserAsync(string userId, string roleId);
+        public Task<BaseApiResponse<UpdateResponseDto>> AddRoleToUserAsync(string userId, string roleId); 
         public Task<BaseApiResponse<UpdateResponseDto>> ChangeUserRoleAsync(string userId, string roleToAddId);
         public Task<BaseApiResponse<DisplayUserFirstLastNameDto>> GetUserFirstAndLastNameAsync(string userId);
         public Task<BaseApiResponse<List<string>>> GetAllUserEmailsAsync();

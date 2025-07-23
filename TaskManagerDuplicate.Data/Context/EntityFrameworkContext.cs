@@ -12,6 +12,7 @@ namespace TaskManagerDuplicate.Data.Context
         public DbSet<User> User { get; set; }
         public DbSet<ToDoTask> ToDoTask { get; set; }
         public DbSet<Role> Role { get; set; }
+        public DbSet<OTP> OTP { get; set; }
 
          protected override void OnConfiguring(DbContextOptionsBuilder contextBuilder)
          {

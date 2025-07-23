@@ -4,7 +4,7 @@
         <name>TaskManagerDuplicate.API</name>
     </assembly>
     <members>
-        <member name="M:TaskManagerDuplicate.API.Controller.AuthenticationController.Login(TaskManagerDuplicate.Domain.DataTransferObjects.UserLoginDto)">
+        <member name="M:TaskManagerDuplicate.API.Controller.AuthenticationController.LoginAsync(TaskManagerDuplicate.Domain.DataTransferObjects.UserLoginDto)">
             <summary>
             This is the endpoint that is responsible for logging in the user.
             </summary>
@@ -14,7 +14,7 @@
             <response code="500">Server Error</response>
             <returns></returns>
         </member>
-        <member name="M:TaskManagerDuplicate.API.Controller.AuthenticationController.LoginWith2FA(System.String,System.String,System.Int64)">
+        <member name="M:TaskManagerDuplicate.API.Controller.AuthenticationController.LoginWith2FAAsync(System.String,System.String,System.Int64)">
             <summary>
             This is the endpoint that logs the user in to the application and generates the JWT token.
             </summary>
@@ -61,14 +61,6 @@
             /// <param name="roleId"></param>
             <returns></returns>
         </member>
-        <member name="M:TaskManagerDuplicate.API.Controller.RoleController.AddRoleToUser(System.String,System.String)">
-            <summary>
-            This endpoint is responsible for adding role to a user
-            </summary>
-            <param name="roleId"></param>
-            /// <param name="userId"></param>
-            <returns></returns>
-        </member>
         <member name="M:TaskManagerDuplicate.API.Controller.ToDoTaskController.AddTaskAsync(TaskManagerDuplicate.Domain.DataTransferObjects.CreateTaskDto)">
             <summary>
             This endpoint is responsible for creating a ToDoTask object
@@ -107,12 +99,13 @@
             <param name="taskId"></param>
             <returns></returns>
         </member>
-        <member name="M:TaskManagerDuplicate.API.Controller.ToDoTaskController.GetAllTasksAsync(System.Int32,System.Int32)">
+        <member name="M:TaskManagerDuplicate.API.Controller.ToDoTaskController.GetAllTasksAsync(System.Int32,System.Int32,System.String)">
             <summary>
             This endpoint is responsible for getting all tasks
             </summary>
             <param name="page"></param>
             <param name="perPage"></param>
+            <param name="status"></param>
             <returns></returns>
         </member>
         <member name="M:TaskManagerDuplicate.API.Controller.UserController.GetAllUsersAsync(System.Int32,System.Int32)">
@@ -188,13 +181,6 @@
             </summary>
             <param name="userId"></param>
             <param name="roleToAddId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TaskManagerDuplicate.API.Controller.UserController.GetUserFirstAndLastNameAsync(System.String)">
-            <summary>
-            This endpoint is responsible for getting user's first and last name
-            </summary>
-            <param name="userId"></param>
             <returns></returns>
         </member>
         <member name="M:TaskManagerDuplicate.API.Controller.UserController.SendBulkEmailToUsersAsync(System.Collections.Generic.List{System.String})">

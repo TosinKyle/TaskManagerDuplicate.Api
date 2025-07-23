@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using System.Web.WebPages;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using TaskManagerDuplicate.Data.Repositories.Interface;
 using TaskManagerDuplicate.Domain.DataTransferObjects;
 using TaskManagerDuplicate.Domain.DbModels;
@@ -11,89 +12,74 @@ using IUserService = TaskManagerDuplicate.Service.Interface.IUserService;//to fi
 
 namespace TaskManagerDuplicate.Service.Implementation
 {
-    public  class UserService : IUserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IMapper _mapper;
         private readonly IFileService _fileService;
         private readonly IEmailService _emailService;
-        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, IMapper mapper, IFileService fileService, IEmailService emailService)
+        private readonly ILogger<UserService> _logger;
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, IMapper mapper, IFileService fileService, IEmailService emailService,ILogger<UserService> logger)
         {
          _userRepository = userRepository;
          _roleRepository = roleRepository;
          _mapper = mapper;
          _fileService = fileService;
          _emailService = emailService;
+         _logger = logger;
         }
         public async Task<BaseApiResponse<UserCreationResponseDto>> AddUserAsync(UserCreationDto userToAdd)
         {
+            try
             {
-                var userEmail = _userRepository.GetUserByEmail(userToAdd.EmailAddress);
-                if (userEmail != null)
                 {
-                    return ApiResponseHelper.BuildResponse<UserCreationResponseDto>("User already exists", true, null, StatusCodes.Status200OK);
-                }
-               //var sharedSecret = TwoFactorAuthentication.GenerateOTP();
-                var passwordHash = SecurityHelper.Encrypt(userToAdd.Password);
-                var response = await _fileService.UploadFileToLocalServer(userToAdd.ProfilePicture);
-                if (response != null)
-                {
-                    User user = _mapper.Map<User>(userToAdd);  //automatic mapping
-                    user.ImageUrl = response.FilePath;
-                    user.PasswordHash = passwordHash;  //manual mapping for prop dt dont exist in both model.
-                    user.PasswordSalt = passwordHash;
-                    user.FileName = response.FileName;
-                    user.IsTwoFactorEnabled = true;
-                   // user.SharedSecret = sharedSecret;
-                    var response1 = _userRepository.AddUser(user);
-                    if (response1)
+                    var userEmail = _userRepository.GetUserByEmail(userToAdd.EmailAddress);
+                    if (userEmail != null)
                     {
-                        var subject = "User Registration";
-                        var messageToBeSent =EmailTemplateHelper.CreateSignUpTemplate(userToAdd.FirstName,user.UserName);
-                       _emailService.SendEmailWithGmailClient(subject, messageToBeSent,new List<string> {user.EmailAddress,"tosinkyle91@gmail.com"});
+                        return ApiResponseHelper.BuildResponse<UserCreationResponseDto>("User already exists", true, null, StatusCodes.Status200OK);
+                    }
+                    //var sharedSecret = TwoFactorAuthentication.GenerateOTP();
+                    var passwordHash = SecurityHelper.Encrypt(userToAdd.Password);
+                    var response = await _fileService.UploadFileToLocalServer(userToAdd.ProfilePicture);
+                    if (response != null)
+                    {
+                        User user = _mapper.Map<User>(userToAdd);  //automatic mapping
+                        user.ImageUrl = response.FilePath;
+                        user.PasswordHash = passwordHash;  //manual mapping for prop dt dont exist in both model.
+                        user.PasswordSalt = passwordHash;
+                        user.FileName = response.FileName;
+                        user.IsTwoFactorEnabled = true;
+                        // user.SharedSecret = sharedSecret;
+                        var response1 = _userRepository.AddUser(user);
+                        if (response1)
+                        {
+                            var subject = "User Registration";
+                            var messageToBeSent = EmailTemplateHelper.CreateSignUpTemplate(userToAdd.FirstName, user.UserName);
+                            _emailService.SendEmailWithGmailClient(subject, messageToBeSent, new List<string> { user.EmailAddress, "tosinkyle91@gmail.com" });
 
-                        var userToReturn = _mapper.Map<UserCreationResponseDto>(user);
-                        userToReturn.FilePath = user.ImageUrl;
-                        userToReturn.FileName = user.FileName;
-                        userToReturn.Id = user.Id;
-                        return ApiResponseHelper.BuildResponse<UserCreationResponseDto>("User was successfully added", true,userToReturn, StatusCodes.Status200OK);
-                        /*return new UserCreationResponseDto { HasAdded = true, Message = "User was successfully added", Id = user.Id, FilePath = response.FilePath, FileName = response.FileName };*/
-                    }                     
-                    else
-                        return ApiResponseHelper.BuildResponse<UserCreationResponseDto>("Something went wrong while adding the user", false, null, StatusCodes.Status400BadRequest);
+                            var userToReturn = _mapper.Map<UserCreationResponseDto>(user);
+                            userToReturn.FilePath = user.ImageUrl;
+                            userToReturn.FileName = user.FileName;
+                            userToReturn.Id = user.Id;
+                            return ApiResponseHelper.BuildResponse<UserCreationResponseDto>("User was successfully added", true, userToReturn, StatusCodes.Status200OK);
+                            /*return new UserCreationResponseDto { HasAdded = true, Message = "User was successfully added", Id = user.Id, FilePath = response.FilePath, FileName = response.FileName };*/
+                        }
+                        else
+                            return ApiResponseHelper.BuildResponse<UserCreationResponseDto>("Something went wrong while adding the user", false, null, StatusCodes.Status400BadRequest);
+                    }
+                    return ApiResponseHelper.BuildResponse<UserCreationResponseDto>("Profile picture could not be added", false, null, StatusCodes.Status200OK);
+
                 }
-                return ApiResponseHelper.BuildResponse<UserCreationResponseDto>("Profile picture could not be added", false, null, StatusCodes.Status200OK);
-               
             }
-
-
-            /*var userEmail = _userRepository.GetUserByEmail(userToAdd.EmailAddress);
-            if (userEmail != null)
-                return new UserCreationResponseDto { HasAdded = false, Message = "User already exists" };
-                var passwordHash = SecurityHelper.Encrypt(userToAdd.Password);
-            var response = await _fileService.UploadFileToCloudinary(userToAdd.ProfilePicture);
-            if (response.IsSuccessful)
+            catch (Exception ex)
             {
-                User userToBeAdded = new User
-                {
-                    FirstName = userToAdd.FirstName,
-                    LastName = userToAdd.LastName,
-                    UserName = userToAdd.UserName,
-                    EmailAddress = userToAdd.EmailAddress,
-                    PhoneNumber = userToAdd.PhoneNumber,
-                    PasswordHash = passwordHash,
-                    PasswordSalt = passwordHash,
-                    ImageUrl = response.ImageUrl,
-                };
-                var response1 = _userRepository.AddUser(userToBeAdded);
-                if (response1)
-                    return new UserCreationResponseDto { HasAdded = true, Message = "User was successfully added", Id = userToBeAdded.Id };
-                else
-                    return new UserCreationResponseDto { HasAdded = false, Message = "Something went wrong while adding the user" };
+                _logger.LogError(ex,ex.Message);
+                return ApiResponseHelper.BuildResponse<UserCreationResponseDto>("An error occurred while adding the user", false, null, StatusCodes.Status500InternalServerError);
             }
-            else
-                return new UserCreationResponseDto { HasAdded = false, Message = "Profile picture could not be added" };*/
+  
+            //_logger.LogInformation("You requested this information");
+                     
         }
 
         public async Task<BaseApiResponse<DeleteResponseDto>> DeleteUserAsync(string userId)
@@ -106,7 +92,6 @@ namespace TaskManagerDuplicate.Service.Implementation
                 {
                     return ApiResponseHelper.BuildResponse<DeleteResponseDto>("User was deleted successfully", true, null, StatusCodes.Status200OK);
                 }   //return object of this dto
-
                 else
                 {
                     return ApiResponseHelper.BuildResponse<DeleteResponseDto>("Something went wrong while deleting the user", true, null, StatusCodes.Status400BadRequest);
@@ -139,7 +124,8 @@ namespace TaskManagerDuplicate.Service.Implementation
             }
 
             var paginatedData = PaginationHelper<UserListDto>.Paginate(userToReturn,perPage,page);
-
+            Log.Information("About to return user list");
+            Log.Information("User List=>{@paginatedData}",paginatedData);
             return ApiResponseHelper
                 .BuildResponse<PaginatedList<UserListDto>>("Users were successfully retrieved",true,paginatedData,StatusCodes.Status200OK);           
         }
@@ -167,40 +153,6 @@ namespace TaskManagerDuplicate.Service.Implementation
              DisplaySingleUserDto singleUser = _mapper.Map<DisplaySingleUserDto>(user);
                 return ApiResponseHelper.BuildResponse<DisplaySingleUserDto>("User was successfully retrieved", true, singleUser,StatusCodes.Status200OK);
             }
-        }
-
-        public async Task<BaseApiResponse<DisplaySingleUserDto>> LoginAsync(UserLoginDto userLogin)
-        {
-            var response = _userRepository.GetUserByEmail(userLogin.EmailAddress);
-            if (response == null)
-            {
-                return ApiResponseHelper.BuildResponse<DisplaySingleUserDto>("User with email address was not found", true, null, StatusCodes.Status200OK);
-            }
-            else
-            {
-                var response1 = SecurityHelper.Decrypt(response.PasswordHash);
-                if (response1 != userLogin.Password)
-                {
-                    return null;   //what to do here
-                }
-                else
-                {
-                    var userToReturn = new DisplaySingleUserDto {
-                        Id = response.Id,
-                        UserName = response.UserName,
-                        FirstName = response.FirstName,
-                        LastName = response.LastName,
-                        PhoneNumber = response.PhoneNumber,
-                        EmailAddress = response.EmailAddress,
-                        ImageUrl = response.ImageUrl,
-                        CreatedOn = response.CreatedOn,
-                        IsActive = response.IsActive,
-                        IsTwoFactorEnabled = response.IsTwoFactorEnabled,
-                    };
-                    return ApiResponseHelper.BuildResponse<DisplaySingleUserDto>("User with email address was not found", true, userToReturn, StatusCodes.Status200OK);
-                }
-            }
-
         }
         public async Task<BaseApiResponse<UpdateResponseDto>> UpdateUserAsync(UpdateUserDto userToUpdate, string userId)
         {
@@ -361,6 +313,42 @@ namespace TaskManagerDuplicate.Service.Implementation
                 var messageToBeSent =EmailTemplateHelper.SendBulkMessage();
                 _emailService.SendEmailWithGmailClient(subject, messageToBeSent, response.Data);//want an explanation
                  return ApiResponseHelper.BuildResponse<BulkMessageDto>("Message has been sent successfully",true,null,StatusCodes.Status200OK);
+            }
+        }
+
+        public async Task<BaseApiResponse<UpdateResponseDto>> AddRoleToUserAsync(string userId, string roleId)
+        {
+            var role = _roleRepository.GetRoleById(roleId);
+            if (role == null)
+            {
+                return ApiResponseHelper.BuildResponse<UpdateResponseDto>("Role does not exist", true, null, StatusCodes.Status200OK);
+            }
+            else
+            { 
+                var user = _userRepository.GetUserById(userId);
+                if (user==null)
+                {
+                    return ApiResponseHelper.BuildResponse<UpdateResponseDto>("User does not exist", true, null, StatusCodes.Status200OK);
+                }
+                if (user.RoleId == roleId)
+                {
+                    return ApiResponseHelper.BuildResponse<UpdateResponseDto>("User already holds role", true, null, StatusCodes.Status200OK);
+                }
+                else 
+                {
+                    user.RoleId = roleId;
+                    bool response = _userRepository.UpdateUser(user);
+                    if (!response)
+                    {
+                        return ApiResponseHelper.BuildResponse<UpdateResponseDto>("Role could not be added to user",false, null, StatusCodes.Status400BadRequest);
+                    }
+                    else 
+                    { 
+                        return ApiResponseHelper.BuildResponse<UpdateResponseDto>("Role has been added to user successfully", true, null, StatusCodes.Status200OK);
+                    }
+                    
+                }
+
             }
         }
     }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GVZcvFiaI09yKSfVo4imX5TKb7YgshkrqOukFw5EO4Q=",
+  "Hash": "cPG+qny2GGhSV3U3EETZPEUDW9UTziO1vS50J3BSnr8=",
   "Source": "TaskManagerDuplicate.API",
   "BasePath": "_content/TaskManagerDuplicate.API",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.API\\wwwroot\\html\\EmailTemplate\\ForgotPassword.html",
+      "SourceId": "TaskManagerDuplicate.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.API\\wwwroot\\",
+      "BasePath": "_content/TaskManagerDuplicate.API",
+      "RelativePath": "html/EmailTemplate/ForgotPassword.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\html\\EmailTemplate\\ForgotPassword.html"
     },
     {
       "Identity": "C:\\Users\\oogunjemilua\\Documents\\ProjectRepos\\TaskManagerDuplicate.Api\\TaskManagerDuplicate.API\\wwwroot\\html\\EmailTemplate\\TaskManagerBulkMessage.html",
